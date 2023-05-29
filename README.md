@@ -59,7 +59,7 @@
 - 開発環境
   - Docker
 - サーバーサイド
-  - Ruby3.1.4
+  - Ruby3.1.2
   - Rails7.0.4(Ruby3.1をサポートし、HotWireが標準で入っている)
 - データベース
   - MySQL2

@@ -1,3 +1,6 @@
+画面遷移図(Figma)リンク
+https://www.figma.com/file/EWIv0vK73Bm3r2YHJ32ViX/Scramoney?type=design&node-id=4%3A10&t=JEX1Jm2vbfhrKQiw-1
+
 ■ サービス概要
 - 誰にも褒められないから家事をやる気が出ない主婦(夫)や、お小遣いを増やしたい学生などに
 - お小遣いの取り合いを通じて努力を続けつつ、互いに認め合うきっかけを作るために

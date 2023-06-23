@@ -1,0 +1,16 @@
+<header>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid sticky-top d-inline-flex">
+      <div style="15px">
+        <%= link_to '<戻る', 'javascript:history.back()', class: 'navbar-brand inline-box' %>
+          <!-- <input type="button" class="navbar-brand inline-box" value="<戻る"/> -->
+        <div class="float-end">
+          <ul class="list-group list-group-horizontal list-unstyled">
+            <li><%= link_to '通知', family_notices_path(@family), class: '' %></li>                <!-- 仮置き -->
+            <li><%= button_to 'サインアウト', logout_path, class: '', method: :delete %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

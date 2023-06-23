@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "home#top"
+
+  resources :families do
+    resources :users, only: %i[new create show edit update destroy]
+    resources :tasks do
+      get 'menu', on: :collection
+    end
+    resources :notices, only: %i[index show]
+    resources :records
+  end
+
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'

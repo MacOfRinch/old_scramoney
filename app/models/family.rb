@@ -1,5 +1,16 @@
 class Family < ApplicationRecord
   has_many :users
 
-  validates :name, presence: true
+  def sum_points
+    points = 0
+    self.users.each do |user|
+      if user.tasks.present?
+        user.tasks.each do |task|
+          points += user.tasks.points
+        end
+      end
+    end
+    points
+  end
+  
 end

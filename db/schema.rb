@@ -12,15 +12,17 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "task_title", null: false
-    t.text "task_description"
-    t.integer "task_points", null: false
+    t.string "suggested_task_title", null: false
+    t.text "suggested_task_description"
+    t.integer "suggested_task_points", null: false
     t.integer "status", limit: 1, default: 0, null: false
+    t.bigint "task_id"
     t.bigint "category_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_approval_requests_on_category_id"
+    t.index ["task_id"], name: "index_approval_requests_on_task_id"
     t.index ["user_id"], name: "index_approval_requests_on_user_id"
   end
 
@@ -42,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
   end
 
   create_table "families", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.string "nickname"
     t.string "avatar"
     t.integer "budget"
@@ -60,9 +62,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
   end
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.integer "points"
+    t.integer "points", null: false
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,13 +80,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
     t.string "name", null: false
     t.string "nickname"
     t.string "avatar"
-    t.integer "pocketmoney"
+    t.integer "pocket_money"
     t.bigint "family_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["family_id"], name: "index_users_on_family_id"
   end
 
   add_foreign_key "approval_requests", "categories"
+  add_foreign_key "approval_requests", "tasks"
   add_foreign_key "approval_requests", "users"
   add_foreign_key "approval_statuses", "approval_requests"
   add_foreign_key "approval_statuses", "users"

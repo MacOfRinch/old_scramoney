@@ -14,7 +14,14 @@ class TasksController < ApplicationController
     end
   end
 
+  def index
+    # 家族ごとにする必要あり
+    @categories = Category.all
+    @tasks = Task.all
+  end
+
   def show
+
   end
 
   def edit
@@ -25,8 +32,13 @@ class TasksController < ApplicationController
 
   def destroy
     task = Task.find(params[:id])
-    task.destroy!
-    redirect_to family_tasks_path, success: '削除しました'
+    if task.user == current_user
+      task.destroy!
+      redirect_to family_tasks_path, success: '削除しました'
+    else
+      flash.now[:danger] = '削除権限がありません'
+      render :show
+    end
   end
 
   def menu; end

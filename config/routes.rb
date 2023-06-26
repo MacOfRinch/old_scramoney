@@ -6,9 +6,13 @@ Rails.application.routes.draw do
     resources :users, only: %i[new create show edit update destroy]
     resources :tasks do
       get 'menu', on: :collection
+      post :task_users, to: 'task_users#create', on: :member
     end
+    resources :task_users, only: %i[create destroy]
     resources :notices, only: %i[index show]
-    resources :records
+    resources :records do
+      get :task_show, on: :member
+    end
   end
 
   get 'login', to: 'user_sessions#new'

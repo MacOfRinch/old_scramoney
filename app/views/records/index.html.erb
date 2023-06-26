@@ -1,22 +1,27 @@
 <!--月を入れる予定-->
 
-<div th:replace="book/search"></div>
+<div th:replace="@tasks/search"></div>
   <div class="container-fluid">
     <div th:text="${deleteError}"></div>
     <div th:if="${@tasks}">
-      <div th:if="${@tasks.size() == 0}">履歴がありません</div>
+      <!--<div th:if="${@tasks.size() == 0}">履歴がありません</div>-->
       <div th:if="${@tasks.size() > 0}">
         <table class="table table-striped">
           <thead class="thead-dark">
-            <tr><th>誰？</th><th>タスク</th><th>ポイント</th><th>日時</th></tr>
+            <tr><th>やった人</th><th>タスク</th><th>pt</th><th>日時</th></tr>
           </thead>
           <tbody>
-          <%= @tasks.each do |task| %>
+            <%= @tasks.each do |task| %>
+            <%= link_to family_record_path(task.user.family, task) do %>
             <tr>
-              <%= link_to family_task_path(task) do %>
-                <td><%= task.user.name %></td><td><%= task.title %></td><td><%= task.points %></td><td><%= task.created_at %></td>
-              <% end %>
+              <div class="center-block">
+                <td><%= task.user.nickname.present? ? task.user.nickname : task.user.name %></td>
+                <td><%= task.task.title %></td>
+                <td><%= task.task.points %></td>
+                <td><%= task.created_at %></td>
+              </div>
             </tr>
+            <% end %>
             <% end %>
           </tbody>
         </table>

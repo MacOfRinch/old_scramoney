@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
   def index
     # ほんとはallじゃなくてwhereで月ごとに変える
-    @tasks = TaskUser.all
+    @tasks = TaskUser.all.order(created_at: :desc)
   end
 
   def new
@@ -20,7 +20,8 @@ class RecordsController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = TaskUser.find(params[:id])
+    @user = @task.user
   end
 
   def edit

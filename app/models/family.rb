@@ -6,11 +6,11 @@ class Family < ApplicationRecord
     self.users.each do |user|
       if user.tasks.present?
         user.tasks.each do |task|
-          points += user.tasks.points
+          points += task.points
         end
       end
     end
     points
   end
-  
+
 end

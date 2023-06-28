@@ -17,6 +17,22 @@ class User < ApplicationRecord
   end
 
   def cancel(task)
-    tasks.destroy(task)
+    task_users.destroy(task)
+  end
+
+  def sum_points
+    self.tasks.pluck(:points).sum
+  end
+
+  def calculate_pocket_money
+    total = self.family.budget
+    if self.family.sum_points == 0
+      pm = (total / self.family.users.size)
+    else
+      ratio = self.tasks.pluck(:points).sum(0.0) / self.family.sum_points
+      pm = total * ratio
+    end
+    pocket_money = (pm / Unit).to_i * Unit
+    pocket_money
   end
 end

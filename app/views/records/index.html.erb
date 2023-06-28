@@ -1,30 +1,18 @@
 <!--月を入れる予定-->
 
 <div th:replace="@tasks/search"></div>
-  <div class="container-fluid">
-    <div th:text="${deleteError}"></div>
-    <div th:if="${@tasks}">
-      <!--<div th:if="${@tasks.size() == 0}">履歴がありません</div>-->
-      <div th:if="${@tasks.size() > 0}">
-        <table class="table table-striped">
-          <thead class="thead-dark">
-            <tr><th>やった人</th><th>タスク</th><th>pt</th><th>日時</th></tr>
-          </thead>
-          <tbody>
-            <%= @tasks.each do |task| %>
-            <%= link_to family_record_path(task.user.family, task) do %>
-            <tr>
-              <div class="center-block">
-                <td><%= task.user.nickname.present? ? task.user.nickname : task.user.name %></td>
-                <td><%= task.task.title %></td>
-                <td><%= task.task.points %></td>
-                <td><%= task.created_at %></td>
-              </div>
-            </tr>
-            <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<div class="container-fluid">
+  <% if @tasks.size == 0 %>
+    <p>今月の履歴がありません</p>
+  <% end %>
+  <% if @tasks.size > 0 %>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr><th>やった人</th><th>タスク</th><th>pt</th><th>日時</th></tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'task_records', collection: @tasks, as: :task %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

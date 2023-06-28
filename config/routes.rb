@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :tasks do
       get 'menu', on: :collection
       post :task_users, to: 'task_users#create', on: :member
+      delete :task_users, to: 'task_users#destroy', on: :member
     end
     resources :task_users, only: %i[create destroy]
     resources :notices, only: %i[index show]

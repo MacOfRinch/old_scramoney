@@ -9,7 +9,7 @@ class TaskUsersController < ApplicationController
 
   def destroy
     # 記録削除処理
-    task = current_user.task_users.find(params[:id]).task
+    task = TaskUser.find(params[:id])
     if task.user == current_user
       current_user.cancel(task)
       redirect_to family_records_path

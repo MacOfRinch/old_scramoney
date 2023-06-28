@@ -1,6 +1,6 @@
 <!--記録一覧から遷移し、削除機能へのリンクをつける-->
 <div class="container-fluid">
-  <%= render partial: 'shared/show_task', locals: { task: @task } %>
+  <%= render partial: 'shared/show_task', locals: { task: @task.task } %>
   <div class="center-block">
     <ul>
     <li>
@@ -8,7 +8,7 @@
     </li>
     </ul>
     <% if @user == current_user %>
-      <%= button_to '削除する', controller: :task_users, action: :destroy %>
+      <%= button_to '削除する', family_task_user_path, method: :delete %>
     <% end %>
   </div>
 </div>

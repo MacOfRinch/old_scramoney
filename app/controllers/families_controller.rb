@@ -17,12 +17,23 @@ class FamiliesController < ApplicationController
   end
 
   def show
-
+    @users = @family.users
+    @each_name_points = each_name_points(@users)
   end
 
   private
 
   def family_params
     params.require(:family).permit(:name, :nickname, :budget)
+  end
+
+  def each_name_points(users)
+    result = []
+    users.each do |user|
+      array = []
+      array << [user.name, user.sum_points]
+      result << array
+    end
+    result
   end
 end

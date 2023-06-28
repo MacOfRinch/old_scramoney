@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 col-offset-3">
+      <% if @family.errors.any? %>
+        <div class="alert alert-danger">
+          <% @family.errors.full_messages.each do |message| %>
+            <%= message %><br>
+          <% end %>
+        </div>
+      <% end %>
+      <h1>あなたの家族について教えてください</h1>
+      <%= form_with model: @family, local: true do |f| %>
+        <%= render "form", { family: @family, f: f } %>
+      <% end %>
+    </div>
+  </div>
+</div>

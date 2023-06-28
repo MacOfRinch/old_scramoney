@@ -1,0 +1,18 @@
+<!--月を入れる予定-->
+
+<div th:replace="@tasks/search"></div>
+<div class="container-fluid">
+  <% if @tasks.size == 0 %>
+    <p>今月の履歴がありません</p>
+  <% end %>
+  <% if @tasks.size > 0 %>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr><th>やった人</th><th>タスク</th><th>pt</th><th>日時</th></tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'task_records', collection: @tasks, as: :task %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

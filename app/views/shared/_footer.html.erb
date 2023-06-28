@@ -1,0 +1,15 @@
+<footer class="footer bg-light">
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid fixed-bottom d-inline-flex justify-content-around flex-nowrap">
+      <div style="15px">
+        <ul class="navbar-brand d-inline-flex justify-content-around list-unstyled">
+          <li class="inline-block"><%= link_to 'ホーム', family_path(@family) %></li>
+          <li class="inline-block"><%= link_to '履歴', family_records_path(@family) %></li>
+          <li class="inline-block"><%= link_to '記録', new_family_record_path(@family) %></li>
+          <li class="inline-block"><%= link_to '登録', menu_family_tasks_path(@family) %></li>
+          <li class="inline-block"><%= link_to '設定', family_path(@family) %></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</footer>

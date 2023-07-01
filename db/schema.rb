@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_01_061315) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "suggested_task_title", null: false
     t.text "suggested_task_description"
@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "family_id"
+    t.index ["family_id"], name: "index_categories_on_family_id"
   end
 
   create_table "families", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -68,7 +70,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "family_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
+    t.index ["family_id"], name: "index_tasks_on_family_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -91,8 +95,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_044627) do
   add_foreign_key "approval_requests", "users"
   add_foreign_key "approval_statuses", "approval_requests"
   add_foreign_key "approval_statuses", "users"
+  add_foreign_key "categories", "families"
   add_foreign_key "task_users", "tasks"
   add_foreign_key "task_users", "users"
   add_foreign_key "tasks", "categories"
+  add_foreign_key "tasks", "families"
   add_foreign_key "users", "families"
 end

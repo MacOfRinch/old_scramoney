@@ -4,6 +4,7 @@ class Task < ApplicationRecord
   has_many :approval_requests
 
   belongs_to :category
+  belongs_to :family
 
   validates :title, presence: true
   validates :points, presence: true

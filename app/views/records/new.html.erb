@@ -12,10 +12,10 @@
       <% @tasks.each do |task| %>
             <tr data-controller="href" data-action="click->href#toHref" data-href="<%= task_show_family_record_path(@family, task.id) %>" tabindex="0" role="link">
               <td>
-                <%= link_to task.title, task_show_family_record_path(@family, task.id), class: "text-decoration-none link-dark" %>
+                <%= link_to task.title, task_show_family_record_path(@family, task.id), class: "text-decoration-none link-dark wide-link" %>
               </td>
               <td>
-                <%= task.points %>
+                <%= link_to task.points, task_show_family_record_path(@family, task.id), class: "text-decoration-none link-dark wide-link" %>
               </td>
             </tr>
       <% end %>

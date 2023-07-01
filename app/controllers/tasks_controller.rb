@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
   def new
-    @categories = Category.all
+    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
     @task = Task.new
   end
 
   def create
     @task = Task.new(task_params)
+    @task.family_id = @family.id
     if @task.save
       redirect_to new_family_task_path(@family), success: 'タスクが登録されました'
     else
@@ -16,8 +17,8 @@ class TasksController < ApplicationController
 
   def index
     # 家族ごとにする必要あり
-    @categories = Category.all
-    @tasks = Task.all
+    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
+    @tasks = Task.where(family_id: @family.id)
   end
 
   def show

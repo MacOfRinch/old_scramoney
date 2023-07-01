@@ -24,6 +24,12 @@ class User < ApplicationRecord
     self.tasks.pluck(:points).sum
   end
 
+  def percent
+    total = self.family.sum_points
+    per = self.sum_points * 100 / total
+    per
+  end
+
   def calculate_pocket_money
     total = self.family.budget
     if self.family.sum_points == 0

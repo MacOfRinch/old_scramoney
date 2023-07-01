@@ -4,6 +4,7 @@ class TaskUsersController < ApplicationController
     # 記録処理
     task = Task.find(params[:id])
     current_user.done(task)
+    current_user.update(pocket_money: current_user.calculate_pocket_money)
     redirect_to new_family_record_path
   end
 
@@ -12,7 +13,8 @@ class TaskUsersController < ApplicationController
     task = TaskUser.find(params[:id])
     if task.user == current_user
       current_user.cancel(task)
-      redirect_to family_records_path
+      current_user.update(pocket_money: current_user.calculate_pocket_money)
+      redirect_to family_records_path, success: 'タスクを削除しました', status: :see_other
     else
       flash.now[:danger] = '削除権限がありません'
     end

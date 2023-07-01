@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     task = Task.find(params[:id])
     if task.user == current_user
       task.destroy!
-      redirect_to family_tasks_path, success: '削除しました'
+      redirect_to family_tasks_path, success: '削除しました', status: :see_other
     else
       flash.now[:danger] = '削除権限がありません'
       render :show

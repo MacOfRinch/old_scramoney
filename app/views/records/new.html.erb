@@ -10,16 +10,14 @@
       <tbody>
       <!--task_show_family_record_pathに遷移先のtask.idを渡したいがうまくいかねぇからN+1問題無視するぜ-->
       <% @tasks.each do |task| %>
-        <%= link_to task_show_family_record_path(@family, task.id) do %>
-            <tr>
+            <tr data-controller="href" data-action="click->href#toHref" data-href="<%= task_show_family_record_path(@family, task.id) %>" tabindex="0" role="link">
               <td>
-                <%= task.title %>
+                <%= link_to task.title, task_show_family_record_path(@family, task.id), class: "text-decoration-none link-dark" %>
               </td>
               <td>
                 <%= task.points %>
               </td>
             </tr>
-        <% end %>
       <% end %>
       </tbody>
     </table>

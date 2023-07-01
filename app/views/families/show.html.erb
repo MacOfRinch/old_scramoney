@@ -1,1 +1,14 @@
-<%= pie_chart @each_name_points %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <%= "総取得ポイント: #{@family.sum_points}pt" %>
+    </div>
+  </div>
+  <%= pie_chart @each_name_points %><br>
+  <div class="center-block">
+    <div class="text-center">
+      <%= "お小遣い予算: #{@family.budget}円" %>
+    </div>
+  </div>
+  <%= column_chart @each_pocket_money %>
+</div>

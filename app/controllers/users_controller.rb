@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.avatar ||= ''
+    @user.pocket_money = 0
     @user.family_id = params[:family_id]
 
     if @user.save

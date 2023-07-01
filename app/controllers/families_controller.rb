@@ -1,6 +1,9 @@
 class FamiliesController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   skip_before_action :set_family, only: %i[new create]
+
+  include UsersHelper
+
   def new
     @family = Family.new
   end
@@ -17,8 +20,9 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    @users = @family.users
-    @each_name_points = each_name_points(@users)
+    users = @family.users
+    @each_name_points = each_name_points(users)
+    @each_pocket_money = each_pocket_money(users)
   end
 
   private
@@ -30,8 +34,18 @@ class FamiliesController < ApplicationController
   def each_name_points(users)
     result = []
     users.each do |user|
-      array = []
-      array << [user.name, user.sum_points]
+      array = nil
+      array = ["#{user.nickname}:#{user.sum_points}pt (#{user.percent}%)", user.sum_points]
+      result << array
+    end
+    result
+  end
+
+  def each_pocket_money(users)
+    result = []
+    users.each do |user|
+      array = nil
+      array = ["#{user.nickname}:#{user.calculate_pocket_money}円", user.calculate_pocket_money]
       result << array
     end
     result

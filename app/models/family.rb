@@ -1,6 +1,8 @@
 class Family < ApplicationRecord
   has_many :users
 
+  validates :budget, presence: true
+
   def sum_points
     points = 0
     self.users.each do |user|

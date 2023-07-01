@@ -1,13 +1,15 @@
 class RecordsController < ApplicationController
+
+  include UsersHelper
+
   def index
     # ほんとはallじゃなくてwhereで月ごとに変える
     @tasks = TaskUser.all.order(created_at: :desc)
   end
 
   def new
-    # 家族ごとに設定するようにする必要あり→FamilyにTaskを紐づけるべきか？
-    @categories = Category.all
-    @tasks = Task.all
+    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
+    @tasks = Task.where(family_id: @family.id).or(Task.where(family_id: nil))
   end
 
   def create

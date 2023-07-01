@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
   def index
     # 家族ごとにする必要あり
-    @categories = Category.where(family_id: @family.id).or(family_id: nil)
+    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
     @tasks = Task.where(family_id: @family.id)
   end
 

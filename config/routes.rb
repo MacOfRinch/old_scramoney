@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :records do
       get :task_show, on: :member
     end
+    get :configuration
   end
 
   get 'login', to: 'user_sessions#new'

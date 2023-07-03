@@ -8,9 +8,9 @@ class Family < ApplicationRecord
   def sum_points
     points = 0
     self.users.each do |user|
-      if user.tasks.present?
-        user.tasks.each do |task|
-          points += task.points
+      if user.task_users.present?
+        user.task_users.each do |record|
+          points += record.task.points * record.count
         end
       end
     end

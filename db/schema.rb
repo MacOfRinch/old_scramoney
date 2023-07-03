@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_01_061315) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_01_083706) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "suggested_task_title", null: false
     t.text "suggested_task_description"
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_061315) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "count", default: 1
     t.index ["task_id"], name: "index_task_users_on_task_id"
     t.index ["user_id"], name: "index_task_users_on_user_id"
   end

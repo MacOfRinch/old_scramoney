@@ -12,16 +12,13 @@ class User < ApplicationRecord
   validates :password, presence: true
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
 
-  def done(task)
-    tasks << task
-  end
-
   def cancel(task)
     task_users.destroy(task)
   end
 
   def sum_points
-    self.tasks.pluck(:points).sum
+    # self.tasks.pluck(:points).sum
+    self.task_users.map{ |record| record.task.points * record.count }.sum
   end
 
   def percent
@@ -35,7 +32,7 @@ class User < ApplicationRecord
     if self.family.sum_points == 0
       pm = (total / self.family.users.size)
     else
-      ratio = self.tasks.pluck(:points).sum(0.0) / self.family.sum_points
+      ratio = self.sum_points.to_f / self.family.sum_points.to_f
       pm = total * ratio
     end
     pocket_money = (pm / Unit).to_i * Unit

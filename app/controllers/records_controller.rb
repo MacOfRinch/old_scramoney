@@ -19,6 +19,7 @@ class RecordsController < ApplicationController
   # タスク記録用コントローラ
   def task_show
     @task = Task.find(params[:id])
+    @task_user = TaskUser.new
   end
 
   def show

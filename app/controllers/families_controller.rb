@@ -25,6 +25,10 @@ class FamiliesController < ApplicationController
     @each_pocket_money = each_pocket_money(users)
   end
 
+  def configuration
+
+  end
+
   private
 
   def family_params

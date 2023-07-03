@@ -3,7 +3,7 @@
   <%= render partial: 'shared/show_task', locals: { task: @task } %>
   <div class="">
     <div class="">
-      <%= form_with model: TaskUser.new, url: task_users_family_task_path, local: true do |f| %>
+      <%= form_with model: @task_user, url: task_users_family_task_path, local: true do |f| %>
         <%= f.label :count, 'カウント：' %>
         <%= f.number_field :count, value: 1 %>
         <%= f.select :count_name, {'回': 0, '時間': 1}, { selected: 0 } %><br>

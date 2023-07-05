@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
   def index
     @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
-    @tasks = Task.where(family_id: @family.id)
+    @tasks = Task.where(family_id: @family.id).or(Task.where(family_id: nil))
   end
 
   def show
@@ -25,9 +25,14 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find(params[:id])
+    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
   end
 
   def update
+    @task = Task.find(params[:id])
+    @task.update!(task_params)
+    redirect_to family_configuration_path(@family)
   end
 
   def destroy

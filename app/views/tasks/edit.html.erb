@@ -1,2 +1,27 @@
-<h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <h1>タスクの変更</h1>
+    </div>
+  </div>
+  <div class="center-block">
+    <div class="col-8 offset-2">
+      <%= form_with model: @task, url: family_task_path, local: true do |f| %>
+        <%= f.label :category %>
+        <%= f.collection_select :name, @categories, :id, :name, { selected: @task.category.name }, { class:'form-control' } %>
+
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'form-control', value: @task.title %>
+
+        <%= f.label :description %>
+        <%= f.text_field :description, class: 'form-control', value: @task.description %>
+
+        <%= f.label :points %>
+        <%= f.number_field :points, class: 'form-control', value: @task.points %>
+
+        <%= f.submit '変更する' %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

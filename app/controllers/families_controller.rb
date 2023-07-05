@@ -25,9 +25,23 @@ class FamiliesController < ApplicationController
     @each_pocket_money = each_pocket_money(users)
   end
 
-  def configuration
+  def edit; end
 
+  def update
+    @family.update!(family_params)
+    redirect_to family_path
   end
+
+  def configuration; end
+
+  def edit_budget; end
+
+  def update_budget
+    @family.update!(budget: params[:budget])
+    redirect_to family_path
+  end
+
+  def profile; end
 
   private
 

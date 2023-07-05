@@ -12,6 +12,22 @@ class User < ApplicationRecord
   validates :password, presence: true
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
 
+  attr_accessor :invite_token
+
+  def send_invite_email
+    UserMailer.invitation(self).deliver_now
+  end
+
+  def create_invite_digest
+    self.invite_token = '腹筋板チョコバレンタイン！'
+    update_attributes(invite_digest: User.digest(invite_token), invite_sent_at: Time.zone.now)
+  end
+
+# 有効期限切れでtrue返すで
+  def invitation_expired?
+    self.invite_sent_at < 24.hours.ago
+  end
+
   def cancel(task)
     task_users.destroy(task)
   end

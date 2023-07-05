@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <p>お小遣い額の変更</p><br>
+      <%= form_with model: @family, url: update_budget_families_path, local: true do |f| %>
+        <%= f.label :budget, '今月のお小遣い額：' %><br>
+        <%= f.number_field :budget, value: @family.budget %>円<br>
+        <%= f.submit '変更する' %>
+      <% end %>
+    </div>
+  </div>
+</div>

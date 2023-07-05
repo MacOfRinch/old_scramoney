@@ -18,18 +18,21 @@ class UsersController < ApplicationController
       render :new
     end
   end
-  def edit
 
-  end
+  def edit; end
 
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to family_user_path(current_user)
+      redirect_to family_user_path(@family, @user)
     else
       render :edit
     end
 
+  end
+
+  def profile
+    @user = current_user
   end
 
   private

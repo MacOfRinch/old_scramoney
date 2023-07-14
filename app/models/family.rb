@@ -1,4 +1,6 @@
 class Family < ApplicationRecord
+  before_create -> { self.id = SecureRandom.uuid }
+
   has_many :users
   has_many :tasks
   has_many :categories

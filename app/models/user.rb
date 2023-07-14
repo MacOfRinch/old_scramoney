@@ -23,7 +23,11 @@ class User < ApplicationRecord
 
   def percent
     total = self.family.sum_points
-    per = self.sum_points * 100 / total
+    if total == 0
+      per = 1 / self.family.users.size
+    else
+      per = self.sum_points * 100 / total
+    end
     per
   end
 

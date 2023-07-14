@@ -41,11 +41,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_083706) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "family_id"
+    t.string "family_id"
     t.index ["family_id"], name: "index_categories_on_family_id"
   end
 
-  create_table "families", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "families", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "nickname"
     t.string "avatar"
@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_083706) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "family_id"
+    t.string "family_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["family_id"], name: "index_tasks_on_family_id"
   end
@@ -86,7 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_083706) do
     t.string "nickname"
     t.string "avatar"
     t.integer "pocket_money"
-    t.bigint "family_id"
+    t.string "family_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["family_id"], name: "index_users_on_family_id"
   end

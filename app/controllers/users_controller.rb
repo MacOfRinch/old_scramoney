@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user.family_id = params[:family_id]
 
     if @user.save
-      redirect_to family_path(current_user.family)
+      redirect_to family_path(@user.family)
     else
       render :new
     end

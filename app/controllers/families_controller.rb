@@ -6,6 +6,7 @@ class FamiliesController < ApplicationController
 
   def new
     @family = Family.new
+    @family.budget = 50000
   end
 
   def create
@@ -25,14 +26,29 @@ class FamiliesController < ApplicationController
     @each_pocket_money = each_pocket_money(users)
   end
 
-  def configuration
+  def configuration; end
 
+  def edit; end
+
+  def update
+    if @family.update(family_params)
+      redirect_to family_path
+    else
+      # うまくいかんかったよ的なのほしい
+      render :edit
+    end
+  end
+
+  def modify_budget; end
+
+  def invitation
+    @invitation_code = current_user.family_id
   end
 
   private
 
   def family_params
-    params.require(:family).permit(:name, :nickname, :budget)
+    params.require(:family).permit(:name, :nickname, :avatar, :budget)
   end
 
   def each_name_points(users)

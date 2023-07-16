@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[new create]
-  skip_before_action :set_family, only: %i[new create]
+  skip_before_action :require_login, only: %i[new invited create]
+  skip_before_action :set_family, only: %i[new invited create]
 
   def new
+    @user = User.new
+  end
+
+  def invited
     @user = User.new
   end
 
@@ -18,6 +22,7 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  
   def edit
 
   end

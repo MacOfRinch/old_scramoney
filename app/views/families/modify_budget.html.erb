@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center"><h1>お小遣いの変更</h1></div>
+    <div class="col-6 offset-3">
+      <%= form_with model: @family, url: family_path(@family), local: true do |f| %>
+        <p>今月のお小遣い額：<%= f.number_field :budget, value: @family.budget %>円</p>
+        <%= f.submit '変更する' %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "home#top"
 
-  resources :families do
+  resources :families, only: %i[new create show edit update] do
     resources :users, only: %i[new create show edit update destroy]
     resources :tasks do
       get 'menu', on: :collection
@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       get :task_show, on: :member
     end
     get :configuration
+    get :modify_budget
+    get :invitation
   end
 
   get 'login', to: 'user_sessions#new'

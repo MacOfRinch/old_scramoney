@@ -1,0 +1,15 @@
+<% content_for(:title, '設定') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center"><h1>設定</h1></div>
+    <div class="col-6 offset-3">
+      <ul>
+        <li><%= link_to 'ポイントの変更', family_tasks_path %></li>
+        <li><%= link_to 'お小遣いの変更', family_modify_budget_path %></li>
+        <li><%= link_to '自分のプロフィール編集', edit_family_user_path(@family, current_user) %></li>
+        <li><%= link_to '家族のプロフィール編集', edit_family_path(@family) %></li>
+        <li><%= link_to '家族の招待', family_invitation_path %></li>
+      </ul>
+    </div>
+  </div>
+</div>

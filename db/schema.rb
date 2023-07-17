@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_01_083706) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_16_054832) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "suggested_task_title", null: false
     t.text "suggested_task_description"

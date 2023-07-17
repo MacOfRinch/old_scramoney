@@ -4,7 +4,7 @@
     <div class="col-6 offset-3">
       <%= form_with model: @family, url: family_path(@family), local: true do |f| %>
         <p>今月のお小遣い額：<%= f.number_field :budget, value: @family.budget %>円</p>
-        <%= f.submit '変更する' %>
+        <%= f.submit '変更する', class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

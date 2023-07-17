@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  mount_uploader :avatar, ImageUploader
+
   has_many :task_users, dependent: :destroy
   has_many :tasks, through: :task_users
   has_many :approval_requests

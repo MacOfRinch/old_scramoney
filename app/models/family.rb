@@ -1,4 +1,7 @@
 class Family < ApplicationRecord
+
+  mount_uploader :avatar, ImageUploader
+
   before_create -> { self.id = SecureRandom.uuid }
 
   has_many :users

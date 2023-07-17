@@ -1,49 +1,32 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[new invited create]
-  skip_before_action :set_family, only: %i[new invited create]
+  skip_before_action :require_login, only: %i[new create]
+  skip_before_action :set_family, only: %i[new create]
+  before_action :set_user, only: %i[edit update]
 
   def new
     @user = User.new
   end
 
-  def invited
-    @user = User.new
-  end
-
   def create
     @user = User.new(user_params)
-    @user.avatar ||= ''
     @user.pocket_money = 0
     @user.family_id = params[:family_id]
 
     if @user.save
+      auto_login(@user)
       redirect_to family_path(@user.family)
     else
       render :new
     end
   end
-  
-  def edit
-
-  end
-
-  def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to family_user_path(current_user)
-    else
-      render :edit
-    end
-
-  end
 
   private
 
   def set_user
-    @user = User.find(current_user.id)
+    @user = current_user
   end
 
   def user_params
-    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:name, :nickname, :email, :avatar, :avatar_cache, :password, :password_confirmation)
   end
 end

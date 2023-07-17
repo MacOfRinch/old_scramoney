@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
+  get 'family_profiles/show'
+  get 'family_profiles/edit'
+  get 'family_profiles/update'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "home#top"
 
   resources :families, only: %i[new create show edit update] do
-    resources :users, only: %i[new create show edit update destroy]
+    resources :users, only: %i[new create edit update destroy]
+    resource :user_profile, only: %i[show edit update]
     resources :tasks do
-      get 'menu', on: :collection
+      get :menu, on: :collection
       post :task_users, to: 'task_users#create', on: :member
       delete :task_users, to: 'task_users#destroy', on: :member
     end
@@ -18,7 +22,10 @@ Rails.application.routes.draw do
     get :modify_budget
     get :invitation
   end
+  resource :family_profile, only: %i[show edit update]
 
+  get :invited, to: 'invited_users#new'
+  post :invited, to: 'invited_users#create'
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'

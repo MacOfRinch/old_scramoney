@@ -1,0 +1,32 @@
+<% content_for(:title, 'タスク管理') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <h1>タスク管理</h1>
+    </div>
+    <div class="center-block">
+    <div class="">
+      <ul>
+        <li>
+          <p><%= "カテゴリ：#{@task.category.name}" %></p>
+        </li>
+        <li>
+          <p><%= "タスク：#{@task.title}" %></p>
+        </li>
+        <% if @task.description.present? %>
+        <li>
+          <p><%= "タスク詳細：#{@task.description}" %></p>
+        </li>
+        <% end %>
+        <li>
+          <p><%= "基礎ポイント：#{@task.points} pt" %></p>
+        </li>
+      </ul>
+    <%= link_to '編集', edit_family_task_path, class: 'btn btn-primary' %>
+    <div class="float-end">
+      <%= button_to 'タスクを削除する', family_task_path, method: :delete, data: { confirm: '今までの履歴からも削除されます。よろしいですか？' } %>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>

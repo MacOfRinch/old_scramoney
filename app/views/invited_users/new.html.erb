@@ -3,7 +3,7 @@
   <div class="row">
     <% if @user.errors.any? %>
     <div class="alert alert-danger">
-      <% @user.errors.full_messages do |message| %>
+      <% @user.errors.full_messages.each do |message| %>
         <%= message %><br>
       <% end %>
     </div>

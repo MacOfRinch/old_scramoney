@@ -4,11 +4,11 @@
     <div class="text-center"><h1>設定</h1></div>
     <div class="col-6 offset-3">
       <ul>
-        <li><%= link_to 'ポイントの変更', family_tasks_path %></li>
-        <li><%= link_to 'お小遣いの変更', family_modify_budget_path %></li>
-        <li><%= link_to '自分のプロフィール', family_user_profile_path(@family) %></li>
-        <li><%= link_to '家族のプロフィール', family_profile_path %></li>
+        <li><%= link_to 'タスク管理', family_tasks_path %></li>
+        <li><%= link_to '自分のプロフィール', family_user_profile_path %></li>
+        <li><%= link_to '家族のプロフィール・お小遣い', family_profile_path %></li>
         <li><%= link_to '家族の招待', family_invitation_path %></li>
+        <li><%= link_to 'サインアウト', logout_path, data: { turbo_method: :delete, confirm: 'サインアウトしますか？' } %></li>
       </ul>
     </div>
   </div>

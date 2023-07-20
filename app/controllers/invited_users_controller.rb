@@ -10,9 +10,11 @@ class InvitedUsersController < ApplicationController
     @user = User.new(user_params)
     @user.pocket_money = 0
     if @user.save
-      family = Family.find(params[:family_id])
-      redirect_to family_path(family)
+      auto_login(@user)
+      family = Family.find(params[:user][:family_id])
+      redirect_to family_path(family), success: 'Scramoneyへようこそ!'
     else
+      flash.now[:danger] = '入力内容に誤りがあります'
       render :new
     end
   end

@@ -1,0 +1,25 @@
+<%= turbo_frame_tag task do %>
+  <%= form_with model: task, url: family_task_path do |f| %>
+  <ul>
+    <div class="form-group">
+    <li>
+      <p><%= f.label :name, 'カテゴリ：' %>
+      <%= f.collection_select :category_id, categories, :id, :name, { selected: task.category_id } %></p>
+    </li>
+    </div>
+    <li>
+      <p><%= f.label :title, 'タスク：' %>
+      <%= f.text_field :title, value: task.title %></p>
+    </li>
+    <li>
+      <p><%= f.label :description, '詳細：' %>
+      <%= f.text_field :description, value: task.description %></p>
+    </li>
+    <li>
+      <p><%= f.label :points, '基礎ポイント：' %>
+      <%= f.number_field :points, value: task.points %> pt</p>
+    </li>
+  </ul>
+  <%= f.submit '更新する', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

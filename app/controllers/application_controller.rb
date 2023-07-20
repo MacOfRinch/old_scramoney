@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
+  include UsersHelper
+
   add_flash_types :success, :info, :warning, :danger
   before_action :require_login
   before_action :set_family

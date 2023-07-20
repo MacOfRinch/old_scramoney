@@ -1,5 +1,5 @@
 module UsersHelper
-  def nickname
-    self.nickname.present? ? self.nickname : self.name
+  def display_name(user)
+    user.nickname.present? ? user.nickname : user.name
   end
 end

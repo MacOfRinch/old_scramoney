@@ -1,2 +1,12 @@
-<h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+<% content_for(:title, 'タスク管理') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <h1>タスク管理</h1>
+    </div>
+    <div class="center-block">
+      <%= render partial: 'edit_form', locals: { task: @task, categories: @categories } %>
+    </div>
+  </div>
+  </div>
+</div>

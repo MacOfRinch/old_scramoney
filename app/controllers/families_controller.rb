@@ -2,8 +2,6 @@ class FamiliesController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   skip_before_action :set_family, only: %i[new create]
 
-  include UsersHelper
-
   def new
     @family = Family.new
     @family.budget = 50000
@@ -32,9 +30,9 @@ class FamiliesController < ApplicationController
 
   def update
     if @family.update(family_params)
-      redirect_to family_path
+      redirect_to family_path, success: '正常に更新されました'
     else
-      # うまくいかんかったよ的なのほしい
+      flash.now[:danger] = '正常に更新できませんでした'
       render :edit
     end
   end
@@ -55,7 +53,7 @@ class FamiliesController < ApplicationController
     result = []
     users.each do |user|
       array = nil
-      array = ["#{user.nickname}:#{user.sum_points}pt (#{user.percent}%)", user.sum_points]
+      array = ["#{display_name(user)}:#{user.sum_points}pt (#{user.percent}%)", user.sum_points]
       result << array
     end
     result
@@ -65,7 +63,7 @@ class FamiliesController < ApplicationController
     result = []
     users.each do |user|
       array = nil
-      array = ["#{user.nickname}:#{user.calculate_pocket_money}円", user.calculate_pocket_money]
+      array = ["#{display_name(user)}:#{user.calculate_pocket_money}円", user.calculate_pocket_money]
       result << array
     end
     result

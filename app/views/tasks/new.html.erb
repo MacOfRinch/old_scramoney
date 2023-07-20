@@ -13,22 +13,7 @@
     <% end %>
       <ul>
         <%= form_with model: @task, url: family_tasks_path(@family) do |f| %>
-          <li>
-            <%= f.label :category_id, 'カテゴリ：' %>
-            <%= f.collection_select :category_id, @categories, :id, :name, prompt: '選択してください' %>
-          </li>
-          <li>
-            <%= f.label :title, 'タスク：' %>
-            <%= f.text_field :title, class: 'form-control' %><br>
-          </li>
-          <li>
-            <%= f.label :description, 'タスク詳細：' %>
-            <%= f.text_field :description, class: 'form-control' %><br>
-          </li>
-          <li>
-            <%= f.label :points, '基礎ポイント：' %>
-            <%= f.number_field :points, class: '' %>pt<br>
-          </li>
+          <%= render partial: 'shared/task_form', locals: { f: f } %>
           <div class="text-center">
             <%= f.submit '登録' %>
           </div>

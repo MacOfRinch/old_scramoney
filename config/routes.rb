@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'family_profiles/show'
-  get 'family_profiles/edit'
-  get 'family_profiles/update'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "home#top"
 

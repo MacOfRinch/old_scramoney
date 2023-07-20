@@ -1,0 +1,13 @@
+<%= turbo_frame_tag task do %>
+  <tr>
+    <td>
+      <%= link_to "▶︎ #{task.category.name}", family_task_path(@family, task), class: "text-decoration-none link-dark wide-link" %>
+    </td>
+    <td>
+      
+    </td>
+    <td>
+      
+    </td>
+  </tr>
+<% end %>

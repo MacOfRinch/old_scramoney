@@ -1,5 +1,4 @@
 class UserProfilesController < ApplicationController
-  skip_before_action :set_family
   before_action :set_user
 
   def show
@@ -10,8 +9,9 @@ class UserProfilesController < ApplicationController
 
   def update
     if @user.update(user_praams)
-      redirect_to user_profile_path
+      redirect_to user_profile_path, success: 'プロフィールが更新されました'
     else
+      flash.now[:danger] = '正常に更新されませんでした'
       render :edit
     end
   end

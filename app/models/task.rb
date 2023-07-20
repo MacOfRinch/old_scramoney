@@ -7,5 +7,5 @@ class Task < ApplicationRecord
   belongs_to :family
 
   validates :title, presence: true
-  validates :points, presence: true
+  validates :points, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 end

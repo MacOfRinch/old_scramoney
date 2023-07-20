@@ -4,7 +4,11 @@
       <%= "総取得ポイント: #{@family.sum_points}pt" %>
     </div>
   </div>
-  <%= pie_chart @each_name_points %><br>
+  <% if @family.sum_points != 0 %>
+    <%= pie_chart @each_name_points %><br>
+  <% else %>
+    <p>今月のデータがありません</p>
+  <% end %>
   <div class="center-block">
     <div class="text-center">
       <%= "お小遣い予算: #{@family.budget}円" %>

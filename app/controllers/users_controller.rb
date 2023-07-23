@@ -14,8 +14,9 @@ class UsersController < ApplicationController
 
     if @user.save
       auto_login(@user)
-      redirect_to family_path(@user.family)
+      redirect_to family_path(@user.family), success: 'Scramoneyへようこそ!'
     else
+      flash.now[:danger] = '入力内容に誤りがあります'
       render :new
     end
   end

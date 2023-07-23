@@ -5,8 +5,9 @@
       <h1>タスク管理</h1>
     </div>
     <div class="center-block">
-      <%= render partial: 'edit_form', locals: { task: @task, categories: @categories } %>
+      <%= form_with model: @task, url: family_task_path do |f| %>
+        <%= render partial: 'edit_form', locals: { task: @task, categories: @categories, f: f } %>
+      <% end %>
     </div>
-  </div>
   </div>
 </div>

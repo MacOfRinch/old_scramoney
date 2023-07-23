@@ -37,6 +37,7 @@ class FamiliesController < ApplicationController
     end
   end
 
+  # 不要かも　後で消すかも
   def modify_budget; end
 
   def invitation

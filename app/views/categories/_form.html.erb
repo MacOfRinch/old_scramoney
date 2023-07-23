@@ -1,0 +1,4 @@
+<%= turbo_frame_tag @category do %>
+  <%= f.text_field :name, class: 'd-inline-block', placeholder: '名前' %>
+  <%= f.submit '登録する', class: 'btn btn-primary' %>
+<% end %>

@@ -1,5 +1,4 @@
-<%= turbo_frame_tag task do %>
-  <%= form_with model: task, url: family_task_path do |f| %>
+
   <ul>
     <div class="form-group">
     <li>
@@ -21,5 +20,3 @@
     </li>
   </ul>
   <%= f.submit '更新する', class: 'btn btn-primary' %>
-  <% end %>
-<% end %>

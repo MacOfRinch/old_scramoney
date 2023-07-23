@@ -1,8 +1,9 @@
 class Family < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
+  attribute :uuid, :string, default: -> { SecureRandom.uuid }
 
-  before_create -> { self.id = SecureRandom.uuid }
+  # before_create -> { self.id = SecureRandom.uuid }
 
   has_many :users
   has_many :tasks

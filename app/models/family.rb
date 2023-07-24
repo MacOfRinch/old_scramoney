@@ -1,9 +1,10 @@
 class Family < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
-  attribute :uuid, :string, default: -> { SecureRandom.uuid }
 
-  # before_create -> { self.id = SecureRandom.uuid }
+  before_create -> { while self.id.blank? || Family.find_by(id: self.id).present? do
+                      self.id = format("%0#{16}d", SecureRandom.random_number(10**16))
+                    end }
 
   has_many :users
   has_many :tasks

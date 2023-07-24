@@ -9,3 +9,5 @@
 
 Category.create!(name: '家事')
 Category.create!(name: '学校')
+Category.create!(name: '仕事')
+Category.create!(name: '掃除')

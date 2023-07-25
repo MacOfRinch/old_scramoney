@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   def sum_points
     # self.tasks.pluck(:points).sum
-    self.task_users.map{ |record| record.task.points * record.count }.sum
+    self.task_users.this_month.map{ |record| record.task.points * record.count }.sum
   end
 
   def percent

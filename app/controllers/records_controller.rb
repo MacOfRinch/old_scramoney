@@ -3,8 +3,8 @@ class RecordsController < ApplicationController
   include UsersHelper
 
   def index
-    # ほんとはallじゃなくてwhereで月ごとに変える
-    @tasks = TaskUser.all.order(created_at: :desc)
+    @tasks = TaskUser.this_month.order(created_at: :desc)
+    @tasks_of_last_month = TaskUser.last_month.order(created_at: :desc)
   end
 
   def new

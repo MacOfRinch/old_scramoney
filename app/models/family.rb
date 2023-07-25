@@ -15,8 +15,8 @@ class Family < ApplicationRecord
   def sum_points
     points = 0
     self.users.each do |user|
-      if user.task_users.present?
-        user.task_users.each do |record|
+      if user.task_users.this_month.present?
+        user.task_users.this_month.each do |record|
           points += record.task.points * record.count
         end
       end

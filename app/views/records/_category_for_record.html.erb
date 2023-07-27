@@ -1,0 +1,5 @@
+<%= turbo_frame_tag category do %>
+  <tr>
+    <td><%= link_to category.name, task_index_family_record_path(@family, category), class: 'text-decoration-none link-dark wide-link' %></td>
+  </tr>
+<% end %>

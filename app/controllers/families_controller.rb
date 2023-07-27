@@ -60,11 +60,31 @@ class FamiliesController < ApplicationController
     result
   end
 
+  def each_name_points_of_last_month(users)
+    result = []
+    users.each do |user|
+      array = nil
+      array = ["#{display_name(user)}:#{user.sum_points_of_last_month}pt (#{user.percent_of_last_month}%)", user.sum_points_of_last_month]
+      result << array
+    end
+    result
+  end
+
   def each_pocket_money(users)
     result = []
     users.each do |user|
       array = nil
       array = ["#{display_name(user)}:#{user.calculate_pocket_money}円", user.calculate_pocket_money]
+      result << array
+    end
+    result
+  end
+
+  def each_pocket_money_of_last_month(users)
+    result = []
+    users.each do |user|
+      array = nil
+      array = ["#{display_name(user)}:#{user.calculate_pocket_money_of_last_month}円", user.calculate_pocket_money_of_last_month]
       result << array
     end
     result

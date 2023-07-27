@@ -3,22 +3,13 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <th>タスク名</th>
-          <th>pt</th>
+          <th>カテゴリ名</th>
         </tr>
       </thead>
       <tbody>
-      <!--task_show_family_record_pathに遷移先のtask.idを渡したいがうまくいかねぇからN+1問題無視するぜ-->
-      <% @tasks.each do |task| %>
-            <tr data-controller="href" data-action="click->href#toHref" data-href="<%= task_show_family_record_path(@family, task.id) %>" tabindex="0" role="link">
-              <td>
-                <%= link_to task.title, task_show_family_record_path(@family, task.id), class: "text-decoration-none link-dark wide-link" %>
-              </td>
-              <td>
-                <%= link_to task.points, task_show_family_record_path(@family, task.id), class: "text-decoration-none link-dark wide-link" %>
-              </td>
-            </tr>
-      <% end %>
+        <% @categories.each do |category| %>
+          <%= render partial: 'category_for_record', locals: { category: category } %>
+        <% end %>
       </tbody>
     </table>
   </div>

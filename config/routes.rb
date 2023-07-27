@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :notices, only: %i[index show]
     resources :records do
       get :task_show, on: :member
+      get :task_index, on: :member
     end
     get :configuration
     get :modify_budget

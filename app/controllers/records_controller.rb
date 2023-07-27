@@ -2,6 +2,7 @@ class RecordsController < ApplicationController
 
   include UsersHelper
 
+  # 履歴だよ。
   def index
     @tasks = TaskUser.this_month.order(created_at: :desc)
     @tasks_of_last_month = TaskUser.last_month.order(created_at: :desc)
@@ -16,7 +17,13 @@ class RecordsController < ApplicationController
 
   end
 
-  # タスク記録用コントローラ
+  # カテゴリ一覧から飛べるタスク一覧ページのコントローラだよ。
+  def task_index
+    @tasks = Task.where(category_id: params[:id])
+    @category = Category.find(params[:id])
+  end
+
+  # タスク記録用コントローラだよ。
   def task_show
     @task = Task.find(params[:id])
     @task_user = TaskUser.new

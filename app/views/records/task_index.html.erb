@@ -1,4 +1,4 @@
-<!--そのカテゴリに属するタスク一覧のページだよ。タスク管理画面へ飛ぶよ-->
+<!--そのカテゴリに属するタスク一覧のページだよ。こっちはタスク記録画面へ飛ぶよ-->
 <div class="container-fluid">
   <div class="center-block">
     <div class="text-center">
@@ -14,7 +14,9 @@
       </tr>
       </thead>
       <tbody>
-        <%= render partial: 'task', collection: @tasks, locals: { family: @family, category: @category } %>
+        <% @tasks.each do |task| %>
+          <%= render partial: 'task_for_record', locals: { task: task, family: @family } %>
+        <% end %>
       </tbody>
     </table>
   </div>

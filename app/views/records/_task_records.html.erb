@@ -2,7 +2,7 @@
   <tr>
     <div class="center-block">
       <td><%= link_to task.user.nickname, family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
-      <td><%= link_to "#{task.task.title} x #{task.count}", family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
+      <td><%= link_to (task.count >= 2 ? "#{task.task.title} x #{task.count}" : task.task.title), family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
       <td><%= link_to task.task.points * task.count.to_i, family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
       <td><%= link_to task.created_at, family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
     </div>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
     resources :categories
     resources :task_users, only: %i[create destroy]
-    resources :notices, only: %i[index show]
+    resources :notices, only: %i[create index show destroy]
     resources :records do
       get :task_show, on: :member
       get :task_index, on: :member

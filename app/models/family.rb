@@ -11,7 +11,7 @@ class Family < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :notices, dependent: :destroy
 
-  validates :budget, presence: true
+  validates :budget, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000 }
 
   def sum_points
     points = 0

@@ -1,12 +1,18 @@
 <div class="container-fluid">
   <div class="center-block">
     <div class="text-center">
-      <h1><%= "あなたの今月のお小遣いは・・・#{current_user.calculate_pocket_money_of_last_month}円です！" %></h1>
+      <p>お疲れ様でした！</p>
+      <h1><%= "あなたの今月のお小遣いは・・・#{current_user.calculate_pocket_money_of_last_month.to_s(:delimited)}円です！" %></h1>
     </div>
   </div>
   <div class="center-block">
     <div class="text-center"><p>先月の結果</p></div>
-    <%= pie_chart @each_name_points_of_last_month %><br>
+    <% if @family.sum_points != 0 %>
+      <%= pie_chart @each_name_points %><br>
+    <% else %>
+      <p>先月のデータがありません</p>
+    <% end %>
+    <!--先月のラスト時点でのお小遣い額にせねばならぬ-->
     <div class="text-center"><p><%= "お小遣い予算：#{@family.budget.to_s(:delimited)}円" %></p></div>
     <div class="d-flex justify-content-around">
       <%= render partial: 'user', collection: @users %>

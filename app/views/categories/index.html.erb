@@ -9,14 +9,12 @@
       <thead class="thead-dark">
       <tr>
         <th>カテゴリ名</th>
+        <th></th>
       </tr>
-      <div class="float-end"><%= link_to '新規作成', new_family_category_path, class: 'btn btn-primary', data: { turbo_frame: 'new_category' } %></div>
+      <div class="float-end"><%= link_to '新規作成', new_family_category_path, class: 'btn btn-primary' %></div>
       </thead>
       <tbody>
-        <%= turbo_frame_tag Category.new %>
-        <div id="categories">
-          <%= render @categories %>
-        </div>
+        <%= render @categories %>
       </tbody>
     </table>
   </div>

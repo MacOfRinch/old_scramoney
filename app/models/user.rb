@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  default_scope -> { order(created_at: :asc) }
+
   mount_uploader :avatar, ImageUploader
 
   has_many :task_users, dependent: :destroy
@@ -13,7 +15,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true
+  validates :password, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
 
   def cancel(task)

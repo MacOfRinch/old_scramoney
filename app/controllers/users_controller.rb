@@ -20,6 +20,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    if current_user.update(user_params)
+      redirect_to family_user_profile_path(@family), success: 'プロフィールが更新されました'
+    end
+    
+  end
+
   private
 
   def set_user

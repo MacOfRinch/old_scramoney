@@ -8,8 +8,8 @@ class UserProfilesController < ApplicationController
   end
 
   def update
-    if @user.update(user_praams)
-      redirect_to user_profile_path, success: 'プロフィールが更新されました'
+    if @user.update(user_params)
+      redirect_to family_user_profile_path, success: 'プロフィールが更新されました'
     else
       flash.now[:danger] = '正常に更新されませんでした'
       render :edit
@@ -19,7 +19,7 @@ class UserProfilesController < ApplicationController
   private
 
   def set_user
-    @user = User.find(current_user.id)
+    @user = current_user
   end
 
   def user_params

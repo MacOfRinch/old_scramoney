@@ -15,6 +15,7 @@ class NoticesController < ApplicationController
     if Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
       @read = Read.update(user_id: current_user.id, notice_id: @notice.id, checked: true)
     end
+    # このままでは月が過ぎると自動的に先月になってしまうから直さねばならぬ
     @each_name_points = each_name_points_of_last_month(@users)
     @each_pocket_money = each_pocket_money_of_last_month(@users)
   end

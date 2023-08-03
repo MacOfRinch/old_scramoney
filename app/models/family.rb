@@ -1,5 +1,7 @@
 class Family < ApplicationRecord
 
+  after_create :copy_default_categories_and_tasks
+
   mount_uploader :avatar, ImageUploader
 
   before_create -> { while self.id.blank? || Family.find_by(id: self.id).present? do
@@ -10,8 +12,15 @@ class Family < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :notices, dependent: :destroy
+  has_many :task_users, dependent: :destroy
 
   validates :budget, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000 }
+
+  # 先月末時点のbudgetを求めるメソッドだよ。未完成だよ。
+  def budget_of_last_month
+    last_month_end = Time.now.prev_month.end_of_month
+
+  end
 
   def sum_points
     points = 0
@@ -37,5 +46,17 @@ class Family < ApplicationRecord
     end
     points
   end
-  
+
+  def copy_default_categories_and_tasks
+    default_tasks = Task.where(family_id: nil)
+    default_categories = Category.where(family_id: nil)
+
+    default_tasks.each do |task|
+      self.tasks.create(name: task.name, description: task.description, points: task.points, category_id: task.category_id, family_id: 0)
+    end
+
+    default_categories.each do |category|
+      self.categories.create(name: category.name, family_id: 0)
+    end
+  end
 end

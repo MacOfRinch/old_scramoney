@@ -1,6 +1,7 @@
 class FamiliesController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   skip_before_action :set_family, only: %i[new create]
+  after_action :initialize_categories_and_tasks, only: :create
 
   def new
     @family = Family.new
@@ -68,5 +69,18 @@ class FamiliesController < ApplicationController
       result << array
     end
     result
+  end
+
+  def initialize_categories_and_tasks
+    default_categories = Category.where(family_id: 0)
+    default_tasks = Task.where(family_id: 0)
+
+    default_categories.each do |category|
+      category.update(family_id: @family.id)
+    end
+
+    default_tasks.each do |task|
+      task.update(family_id: @family.id)
+    end
   end
 end

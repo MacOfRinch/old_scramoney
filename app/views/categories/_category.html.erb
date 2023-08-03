@@ -1,5 +1,5 @@
-<%= turbo_frame_tag category do %>
-  <tr>
-    <td><%= link_to category.name, family_category_path(@family, category), class: 'text-decoration-none link-dark wide-link' %></td>
-  </tr>
-<% end %>
+
+    <tr>
+      <td class="col-9"><%= link_to category.name, family_category_path(@family, category), class: 'text-decoration-none link-dark wide-link' %></td>
+      <td class="col-3"><%= button_to '削除', family_category_path(@family, category), method: :delete, class: 'btn btn-outline-danger' %></td>
+    </tr>

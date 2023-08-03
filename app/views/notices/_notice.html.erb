@@ -5,7 +5,7 @@
         <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link' %>
       </div>
       <div class="float-end">
-        <%= notice.created_at %>
+        <%= l notice.created_at, format: :short %>
       </div>
     </td>
   </tr>

@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <div class="center-block">
     <div class="text-center">
+      <%= "#{display_family_name(@family)}のデータ(#{Date.today.month}月分)" %><br>
       <%= "総取得ポイント: #{@family.sum_points}pt" %>
     </div>
   </div>

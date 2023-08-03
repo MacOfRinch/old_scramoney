@@ -11,14 +11,14 @@ class CategoriesController < ApplicationController
     @category.family_id = @family.id
 
     if @category.save
-      flash.now[:notice] = "#{task.name}を登録しました"
+      redirect_to family_categories_path, success: "【#{@category.name}】が登録されました"
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def index
-    @categories = Category.includes(:tasks).where(family_id: @family.id).or(Category.where(family_id: nil))
+    @categories = Category.includes(:tasks).where(family_id: @family.id)
   end
 
   def show
@@ -29,11 +29,17 @@ class CategoriesController < ApplicationController
 
   end
 
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy!
+    redirect_to family_categories_path, success: "【#{@category.name}】が削除されました"
+  end
+
   private
 
   def set_category
     @category = Category.find(params[:id])
-    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
+    @categories = Category.where(family_id: @family.id)
   end
 
   def category_params

@@ -4,13 +4,13 @@ class RecordsController < ApplicationController
 
   # 履歴だよ。
   def index
-    @tasks = TaskUser.this_month.order(created_at: :desc)
-    @tasks_of_last_month = TaskUser.last_month.order(created_at: :desc)
+    @tasks = TaskUser.where(family_id: @family.id).this_month.order(created_at: :desc)
+    @tasks_of_last_month = TaskUser.where(family_id: @family.id).last_month.order(created_at: :desc)
   end
 
   def new
-    @categories = Category.where(family_id: @family.id).or(Category.where(family_id: nil))
-    @tasks = Task.where(family_id: @family.id).or(Task.where(family_id: nil))
+    @categories = Category.where(family_id: @family.id)
+    @tasks = Task.where(family_id: @family.id)
   end
 
   def create

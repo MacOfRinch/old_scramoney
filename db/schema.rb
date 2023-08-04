@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_215601) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_04_184920) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "suggested_task_title", null: false
     t.text "suggested_task_description"
@@ -95,6 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_215601) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "family_id"
+    t.integer "category_name", default: 0, null: false
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["family_id"], name: "index_tasks_on_family_id"
   end

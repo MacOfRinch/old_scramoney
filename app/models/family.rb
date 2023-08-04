@@ -51,12 +51,32 @@ class Family < ApplicationRecord
     default_tasks = Task.where(family_id: nil)
     default_categories = Category.where(family_id: nil)
 
-    default_tasks.each do |task|
-      self.tasks.create(name: task.name, description: task.description, points: task.points, category_id: task.category_id, family_id: 0)
+    default_categories.each do |category|
+      new_category = category.dup
+      new_category.family_id = self.id
+      new_category.save
     end
 
-    default_categories.each do |category|
-      self.categories.create(name: category.name, family_id: 0)
+    default_tasks.each do |task|
+      new_task = task.dup
+      new_task.family_id = self.id
+      case new_task.category_name
+
+      when "housework"
+        new_task.category_id = self.categories.find_by(name: '家事').id
+      when "work"
+        new_task.category_id = self.categories.find_by(name: '仕事').id
+      when "school"
+        new_task.category_id = self.categories.find_by(name: '学校').id
+      when "study"
+        new_task.category_id = self.categories.find_by(name: '勉強(科目ごと)').id
+      when "pet"
+        new_task.category_id = self.categories.find_by(name: 'ペット').id
+      when "extra"
+        new_task.category_id = self.categories.find_by(name: 'その他').id
+      end
+      
+      new_task.save
     end
   end
 end

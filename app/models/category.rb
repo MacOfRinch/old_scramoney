@@ -1,8 +1,10 @@
 class Category < ApplicationRecord
-  has_many :tasks
+  default_scope -> { order(created_at: :asc) }
+  
+  has_many :tasks, dependent: :destroy
   has_many :approval_requests
 
-  belongs_to :family
+  belongs_to :family, optional: true
 
   validates :name, presence: true
 

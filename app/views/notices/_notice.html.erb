@@ -1,0 +1,12 @@
+<%= turbo_frame_tag notice do %>
+  <tr>
+    <td>
+      <div class="float-left flex-fill">
+        <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link' %>
+      </div>
+      <div class="float-end">
+        <%= l notice.created_at, format: :short %>
+      </div>
+    </td>
+  </tr>
+<% end %>

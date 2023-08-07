@@ -1,13 +1,18 @@
 <div class="container-fluid">
   <div class="center-block">
     <div class="text-center">
+      <%= "#{display_family_name(@family)}のデータ(#{Date.today.month}月分)" %><br>
       <%= "総取得ポイント: #{@family.sum_points}pt" %>
     </div>
   </div>
-  <%= pie_chart @each_name_points %><br>
+  <% if @family.sum_points != 0 %>
+    <%= pie_chart @each_name_points %><br>
+  <% else %>
+    <p>今月のデータがありません</p>
+  <% end %>
   <div class="center-block">
     <div class="text-center">
-      <%= "お小遣い予算: #{@family.budget}円" %>
+      <%= "お小遣い予算: #{@family.budget.to_s(:delimited)}円" %>
     </div>
   </div>
   <%= column_chart @each_pocket_money %>

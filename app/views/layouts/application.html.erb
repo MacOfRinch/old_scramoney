@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Scramoney</title>
+    <title><%= page_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,9 +14,11 @@
   <% if logged_in? %>
     <%= render partial: 'shared/header', user: @user %>
   <% end %>
-    <%= yield %>
-    <% if logged_in? %>
-      <%= render partial: 'shared/footer', family: @family %>
-    <% end %>
+  <%= render 'shared/flash_messages' %>
+  <%= yield %>
+  <div class="mb-5"></div>
+  <% if logged_in? %>
+    <%= render partial: 'shared/footer', family: @family %>
+  <% end %>
   </body>
 </html>

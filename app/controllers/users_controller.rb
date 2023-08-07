@@ -8,37 +8,32 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.avatar ||= ''
     @user.pocket_money = 0
     @user.family_id = params[:family_id]
 
     if @user.save
-      redirect_to family_path(current_user.family)
+      auto_login(@user)
+      redirect_to family_path(@user.family), success: 'Scramoneyへようこそ!'
     else
+      flash.now[:danger] = '入力内容に誤りがあります'
       render :new
     end
   end
-  def edit
-
-  end
 
   def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to family_user_path(current_user)
-    else
-      render :edit
+    if current_user.update(user_params)
+      redirect_to family_user_profile_path(@family), success: 'プロフィールが更新されました'
     end
-
+    
   end
 
   private
 
   def set_user
-    @user = User.find(current_user.id)
+    @user = current_user
   end
 
   def user_params
-    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:name, :nickname, :email, :avatar, :avatar_cache, :password, :password_confirmation)
   end
 end

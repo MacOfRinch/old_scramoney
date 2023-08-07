@@ -1,0 +1,6 @@
+<%= turbo_frame_tag task do %>
+  <tr>
+    <td><%= link_to task.title, task_show_family_record_path(family, task), class: 'text-decoration-none link-dark wide-link' %></td>
+    <td><%= link_to task.points, task_show_family_record_path(family, task), class: 'text-decoration-none link-dark wide-link' %></td>
+  </tr>
+<% end %>

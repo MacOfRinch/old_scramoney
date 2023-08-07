@@ -1,0 +1,23 @@
+<!--そのカテゴリに属するタスク一覧のページだよ。こっちはタスク記録画面へ飛ぶよ-->
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <h1><%= "【#{@category.name}】のタスク一覧" %></h1>
+    </div>
+  </div>
+  <div class="center-block">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>タスク名</th>
+        <th>pt</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <%= render partial: 'task_for_record', locals: { task: task, family: @family } %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<% content_for(:title, 'タスク管理') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <h1>タスク管理</h1>
+    </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>カテゴリ</th>
+          <th>タスク名</th>
+          <th>pt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @tasks %>
+      </tbody>
+    </table>
+  </div>
+</div>

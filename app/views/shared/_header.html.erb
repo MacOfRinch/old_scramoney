@@ -1,16 +1,14 @@
 <header>
   <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid sticky-top d-inline-flex">
-      <div style="15px">
+    <div class="container-fluid sticky-top d-flex">
         <%= link_to '<戻る', 'javascript:history.back()', class: 'navbar-brand inline-box' %>
           <!-- <input type="button" class="navbar-brand inline-box" value="<戻る"/> -->
         <div class="float-end">
           <ul class="list-group list-group-horizontal list-unstyled">
-            <li><%= link_to '通知', family_notices_path(@family) %></li>                <!-- 仮置き -->
-            <li><%= button_to 'サインアウト', logout_path, method: :delete %></li>
+            <li><%= link_to (Read.where(user_id: current_user.id, checked: false).present? ? "通知(#{Read.where(user_id: current_user.id, checked: false).count}件の未読)" : '通知'), family_notices_path(@family), class: 'text-decoration-none link-dark' %></li>
+            <!--<li><%= button_to 'サインアウト', logout_path, method: :delete %></li>-->
           </ul>
         </div>
-      </div>
     </div>
   </nav>
 </header>

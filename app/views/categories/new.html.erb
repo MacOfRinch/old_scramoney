@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <% if @category.errors.any? %>
+    <% @category.errors.full_messages.each do |error| %>
+      <%= error %>
+    <% end %>
+  <% end %>
+  <%= form_with model: @category, url: family_categories_path do |f| %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'カテゴリ名を入力してください' %>
+    <%= f.submit '登録する', class: 'btn btn-primary' %>
+  <% end %>
+</div>

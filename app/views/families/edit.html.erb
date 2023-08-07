@@ -1,0 +1,13 @@
+<% content_for(:title, '家族の編集') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+    <h1>家族プロフィールの編集</h1>
+    </div>
+    <div class="col-8 offset-2">
+      <%= form_with model: @family, url: family_path(@family), local: true do |f| %>
+        <%= render 'form', f: f %>
+      <% end %>
+    </div>
+  </div>
+</div>

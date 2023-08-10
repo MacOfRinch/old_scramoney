@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to family_tasks_path(@family), success: 'タスク情報が更新されました'
+      redirect_to family_categories_path(@family), success: 'タスク情報が更新されました'
     else
       flash.now[:danger] = '入力内容に誤りがあります'
       render :show

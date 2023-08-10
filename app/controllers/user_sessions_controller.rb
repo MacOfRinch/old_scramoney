@@ -9,9 +9,9 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
 
     if @user
-      redirect_to family_path(@user.family), notice: 'ログイン成功'
+      redirect_to family_path(@user.family), success: 'ログインに成功しました！'
     else
-      flash.now[:alert] = "ログイン失敗"
+      flash.now[:danger] = "ログインに失敗しました"
       render :new
     end
   end

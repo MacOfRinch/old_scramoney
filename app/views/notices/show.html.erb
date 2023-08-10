@@ -1,4 +1,6 @@
 <div class="container-fluid">
+<% case @notice.notice_type %>
+<% when "pocket_money" %>
   <div class="center-block">
     <div class="text-center">
       <p>お疲れ様でした！</p>
@@ -18,4 +20,7 @@
       <%= render partial: 'user', collection: @users %>
     </div>
   </div>
+<% when "approval_request" %>
+  <%= render partial: 'show_approval_request', locals: { family: @family, new_data: @new_family_data, request: @request } %>
+<% end %>
 </div>

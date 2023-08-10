@@ -5,6 +5,22 @@ namespace :past_data do
     old_records.each do |record|
       record.destroy!
     end
+
+    old_temporary_data = TemporaryFamilyDatum.where('created_at <= ?', 2.months.ago)
+    old_temporary_data.each do |data|
+      data.destroy!
+    end
+
+    old_request_data = ApprovalRequest.where('created_at <= ?', 2.months.ago)
+    old_request_data.each do |data|
+      data.destroy!
+    end
+
+    old_status_data = ApprovalStatus.where('created_at <= ?', 2.months.ago)
+    old_status_data.each do |data|
+      data.destroy!
+    end
+
     old_notices = Notice.where('created_at <= ?', 6.months.ago)
     old_notices.each do |notice|
       notice.destroy!

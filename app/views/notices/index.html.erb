@@ -7,11 +7,9 @@
       </tr>
       </thead>
       <tbody>
-        <%= turbo_frame_tag Notice.new do %>
-          <div class="d-flex" id="notices">
-            <%= render @notices %>
-          </div>
-        <% end %>
+        <div class="d-flex" id="notices">
+          <%= render @notices %>
+        </div>
       </tbody>
     </table>
   </div>

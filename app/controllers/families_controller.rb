@@ -1,7 +1,7 @@
 class FamiliesController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   skip_before_action :set_family, only: %i[new create]
-  after_action :initialize_categories_and_tasks, only: :create
+  # after_action :initialize_categories_and_tasks, only: :create
 
   def new
     @family = Family.new
@@ -10,6 +10,7 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(family_params)
+    @family.update(budget_of_last_month: @family.budget)
 
     if @family.save
       redirect_to new_family_user_path(@family), success: '家族を登録しました'
@@ -77,30 +78,17 @@ class FamiliesController < ApplicationController
     result
   end
 
-  def initialize_categories_and_tasks
-    default_categories = Category.where(family_id: 0)
-    default_tasks = Task.where(family_id: 0)
+  # 旧き時代の残滓。一応残しておくよ。
+  # def initialize_categories_and_tasks
+    # default_categories = Category.where(family_id: 0)
+    # default_tasks = Task.where(family_id: 0)
 
-    default_categories.each do |category|
-      category.update(family_id: @family.id)
-    end
+    # default_categories.each do |category|
+      # category.update(family_id: @family.id)
+    # end
 
-    default_tasks.each do |task|
-      task.update(family_id: @family.id)
-    end
-  end
-
-  # 家族プロフィールをいじる時、自分以外の家族に通知を送るメソッドだよ。
-  def send_approval_request(approval_request)
-    users = @family.users
-    users.each do |user|
-      if user == current_user
-        # 申請した本人は承認したということにするよ。
-        ApprovalStatus.create(approval_request_id: approval_request.id, user_id: user.id, status: :accept)
-      else
-        ApprovalStatus.create(approval_request_id: approval_request.id, user_id: user.id)
-        Notice.create(title: '家族プロフィール変更の承認依頼', family_id: @family.id, user_id: user.id, notice_type: :approval_request)
-      end
-    end
-  end
+    # default_tasks.each do |task|
+      # task.update(family_id: @family.id)
+    # end
+  # end
 end

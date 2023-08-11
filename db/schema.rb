@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
     t.string "nickname"
     t.string "avatar"
     t.integer "budget"
+    t.integer "budget_of_last_month"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

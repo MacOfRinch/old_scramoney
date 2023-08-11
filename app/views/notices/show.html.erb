@@ -15,7 +15,7 @@
       <p>先月のデータがありません</p>
     <% end %>
     <!--先月のラスト時点でのお小遣い額にせねばならぬ-->
-    <div class="text-center"><p><%= "お小遣い予算：#{@family.budget.to_s(:delimited)}円" %></p></div>
+    <div class="text-center"><p><%= "お小遣い予算：#{@family.budget_of_last_month.to_s(:delimited)}円" %></p></div>
     <div class="d-flex justify-content-around">
       <%= render partial: 'user', collection: @users %>
     </div>

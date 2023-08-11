@@ -66,7 +66,8 @@ end
   end
 
   def calculate_pocket_money_of_last_month
-    total = self.family.budget
+    # こいつが犯人だよ
+    total = self.family.budget_of_last_month
     if self.family.sum_points_of_last_month == 0
       pm = (total / self.family.users.size)
     else

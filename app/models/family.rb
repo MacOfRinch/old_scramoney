@@ -19,12 +19,6 @@ class Family < ApplicationRecord
 
   validates :budget, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000 }
 
-  # 先月末時点のbudgetを求めるメソッドだよ。未完成だよ。
-  def budget_of_last_month
-    last_month_end = Time.now.prev_month.end_of_month
-
-  end
-
   # 家族の総取得ポイント数を計算するメソッドだよ。
   def sum_points
     points = 0

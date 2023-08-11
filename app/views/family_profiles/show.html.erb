@@ -24,7 +24,7 @@
         <tr>
           <th scope="row">お小遣い予算</th>
           <td>
-            <%= @family.budget %>円
+            <%= @family.budget.to_s(:delimited) %>円
           </td>
         </tr>
       </table>

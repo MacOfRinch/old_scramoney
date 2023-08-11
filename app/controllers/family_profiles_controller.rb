@@ -6,10 +6,16 @@ class FamilyProfilesController < ApplicationController
   end
 
   def update
-    if @family.update(family_params)
-      redirect_to family_profile_path
+    @family.assign_attributes(family_params)
+    if @family.valid?
+      approval_request = ApprovalRequest.create(family_id: @family.id, user_id: current_user.id)
+      TemporaryFamilyDatum.create(approval_request_id: approval_request.id, name: @family.name, nickname: @family.nickname, avatar: @family.avatar, budget: @family.budget)
+      send_approval_request(approval_request)
+      redirect_to family_path(@family), success: 'プロフィール編集の承認依頼を送りました'
+
     else
-      render :edit
+      flash.now[:danger] = '入力内容に誤りがあります'
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -17,5 +23,20 @@ class FamilyProfilesController < ApplicationController
 
   def family_params
     params.require(:family).permit(:name, :nickname, :avatar, :avatar_cache, :budget)
+  end
+
+  def send_approval_request(approval_request)
+    users = @family.users
+    users.each do |user|
+      if user == current_user
+        # 申請した本人は承認したということにするよ。
+        ApprovalStatus.create(approval_request_id: approval_request.id, user_id: user.id, status: :accept)
+      else
+        ApprovalStatus.create(approval_request_id: approval_request.id, user_id: user.id)
+        notice = Notice.create(title: '家族プロフィール変更の承認依頼', family_id: @family.id, user_id: user.id, notice_type: :approval_request, approval_request_id: approval_request.id)
+        Read.create!(notice_id: notice.id, user_id: user.id, checked: false)
+      end
+    end
+    @family.apply_changes_if_approved(approval_request)
   end
 end

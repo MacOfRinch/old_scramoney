@@ -1,7 +1,7 @@
 class FamiliesController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   skip_before_action :set_family, only: %i[new create]
-  after_action :initialize_categories_and_tasks, only: :create
+  # after_action :initialize_categories_and_tasks, only: :create
 
   def new
     @family = Family.new
@@ -10,6 +10,7 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(family_params)
+    @family.update(budget_of_last_month: @family.budget)
 
     if @family.save
       redirect_to new_family_user_path(@family), success: '家族を登録しました'
@@ -30,11 +31,17 @@ class FamiliesController < ApplicationController
   def edit; end
 
   def update
-    if @family.update(family_params)
-      redirect_to family_path, success: '正常に更新されました'
+    @family.assign_attributes(family_params)
+    if @family.valid?
+      approval_request = ApprovalRequest.create(family_id: @family.id, user_id: current_user.id)
+      send_approval_request(approval_request)
+      # 一時的に変更後のデータを保存するよ。
+      TemporaryFamilyDatum.create!(approval_request_id: approval_request.id, name: @family.name, nickname: @family.nickname, avatar: @family.avatar, budget: @family.budget)
+      redirect_to family_path(@family), success: 'プロフィール編集の承認依頼を送りました'
+
     else
-      flash.now[:danger] = '正常に更新できませんでした'
-      render :edit
+      flash.now[:danger] = '入力内容に誤りがあります'
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -65,22 +72,23 @@ class FamiliesController < ApplicationController
     result = []
     users.each do |user|
       array = nil
-      array = ["#{display_name(user)}:#{user.calculate_pocket_money}円", user.calculate_pocket_money]
+      array = ["#{display_name(user)}:#{user.calculate_pocket_money.to_s(:delimited)}円", user.calculate_pocket_money]
       result << array
     end
     result
   end
 
-  def initialize_categories_and_tasks
-    default_categories = Category.where(family_id: 0)
-    default_tasks = Task.where(family_id: 0)
+  # 旧き時代の残滓。一応残しておくよ。
+  # def initialize_categories_and_tasks
+    # default_categories = Category.where(family_id: 0)
+    # default_tasks = Task.where(family_id: 0)
 
-    default_categories.each do |category|
-      category.update(family_id: @family.id)
-    end
+    # default_categories.each do |category|
+      # category.update(family_id: @family.id)
+    # end
 
-    default_tasks.each do |task|
-      task.update(family_id: @family.id)
-    end
-  end
+    # default_tasks.each do |task|
+      # task.update(family_id: @family.id)
+    # end
+  # end
 end

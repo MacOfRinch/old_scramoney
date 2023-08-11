@@ -2,7 +2,11 @@
   <tr>
     <td>
       <div class="float-left flex-fill">
-        <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link' %>
+        <% if notice.notice_type == "pocket_money" %>
+          <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link' %>
+        <% elsif notice.notice_type == "approval_request" %>
+          <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link' %>
+        <% end %>
       </div>
       <div class="float-end">
         <%= l notice.created_at, format: :short %>

@@ -18,6 +18,23 @@ class NoticesController < ApplicationController
     # このままでは月が過ぎると自動的に先月になってしまうから直さねばならぬ
     @each_name_points = each_name_points_of_last_month(@users)
     @each_pocket_money = each_pocket_money_of_last_month(@users)
+    if @notice.notice_type == "approval_request"
+      @request = ApprovalRequest.find(@notice.approval_request_id)
+      @new_family_data = TemporaryFamilyDatum.find_by(approval_request_id: @notice.approval_request_id)
+    end
+  end
+
+  def show_approval_request
+    @notice = Notice.find(params[:notice_id])
+    @users = @family.users
+    if Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
+      @read = Read.update(user_id: current_user.id, notice_id: @notice.id, checked: true)
+    end
+    
+    if @notice.notice_type == "approval_request"
+      @request = ApprovalRequest.find(@notice.approval_request_id)
+      @new_family_data = TemporaryFamilyDatum.find_by(approval_request_id: @notice.approval_request_id)
+    end
   end
 
   def destroy
@@ -41,7 +58,7 @@ class NoticesController < ApplicationController
     result = []
     users.each do |user|
       array = nil
-      array = ["#{display_name(user)}:#{user.calculate_pocket_money_of_last_month}円", user.calculate_pocket_money_of_last_month]
+      array = ["#{display_name(user)}:#{user.calculate_pocket_money_of_last_month.to_s(:delimited)}円", user.calculate_pocket_money_of_last_month]
       result << array
     end
     result

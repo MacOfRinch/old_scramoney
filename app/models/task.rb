@@ -12,9 +12,10 @@ class Task < ApplicationRecord
   enum :category_name, {
                         housework: 0,
                         work: 1,
-                        school: 2,
-                        study: 3,
-                        pet: 4,
-                        extra: 5
+                        study_work: 2,
+                        school: 3,
+                        study: 4,
+                        pet: 5,
+                        extra: 6
                         }
 end

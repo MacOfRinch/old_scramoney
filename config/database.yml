@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresql
   database: scramoney_production
   username: scramoney
   password: <%= ENV["SCRAMONEY_DATABASE_PASSWORD"] %>

@@ -3,6 +3,8 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+import "popper"
+import "bootstrap"
 
 import "chartkick"
 import "Chart.bundle"

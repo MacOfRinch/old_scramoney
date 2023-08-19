@@ -55,6 +55,7 @@ gem 'cssbundling-rails'
 
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'dotenv-rails'
 # gem 'whenever', require: false
 
 group :development, :test do

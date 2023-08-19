@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'approval_requests/refuse'
   get 'approve/refuse'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root "home#top"
+  root "user_sessions#new"
 
   resources :families, only: %i[new create show edit update] do
     resources :users, only: %i[new create edit update destroy]

@@ -8,8 +8,8 @@
         <li><%= link_to '自分のプロフィール', family_user_profile_path %></li>
         <li><%= link_to '家族のプロフィール・お小遣い', family_profile_path %></li>
         <li><%= link_to '家族の招待', family_invitation_path %></li>
-        <li><%= button_to 'サインアウト', logout_path, method: :delete, data: { confirm: 'サインアウトしますか？' } %></li>
       </ul>
+      <div class="text-center"><%= button_to 'ログアウト', logout_path, class: 'btn btn-danger', method: :delete, data: { confirm: 'サインアウトしますか？' } %></div>
     </div>
   </div>
 </div>

@@ -7,4 +7,4 @@ import "popper"
 import "bootstrap"
 
 import "chartkick"
-import "Chart.bundle"
+import "Chart.bundle"import * as bootstrap from "bootstrap"

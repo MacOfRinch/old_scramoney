@@ -20,7 +20,7 @@
         <%= f.label :nickname, 'ニックネーム' %>
         <%= f.text_field :nickname, class: 'form-control' %>
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <%= f.label :avatar, 'イメージ' %>
         <%= f.file_field :avatar, class: 'form-control' %>
         <%= f.hidden_field :avatar_cache %>
@@ -29,7 +29,7 @@
       <div class="mb-3 mt-3">
         <%= image_tag @user.avatar.url class: 'rounded-circle', id: 'preview', size: '100x100' %>
       </div>
-      <% end %>
+      <% end %>-->
       <div class="form-group">
         <%= f.label :budget, 'お小遣い予算' %>
         <%= f.number_field :budget, class: 'form-control' %>

@@ -14,12 +14,14 @@
           <th scope="row">ニックネーム</th>
           <td><%= @user.nickname %></td>
         </tr>
-        <tr>
-          <th scope="row">アバター</th>
+        <!--<tr>
+        <% if @user.avatar.present? %>
+          <th scope="row">イメージ</th>
           <td>
             <%= image_tag @user.avatar.url, class: 'rounded-circle mr-15', size: '100x100' %>
           </td>
-        </tr>
+        <% end %>
+        </tr>-->
       </table>
     </div>
   </div>

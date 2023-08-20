@@ -16,10 +16,12 @@
           <td><%= @family.nickname %></td>
         </tr>
         <!--<tr>
+        <% if @family.avatar.present? %>
           <th scope="row">アバター</th>
           <td>
             <%= image_tag @family.avatar.url, class: 'rounded-circle mr-15', size: '100x100' %>
           </td>
+        <% end %>
         </tr>-->
         <tr>
           <th scope="row">お小遣い予算</th>

@@ -17,6 +17,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :reset_password_token, uniqueness: true, allow_nil: true
 
   def cancel(task)
     task_users.destroy(task)

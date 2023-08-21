@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_20_081803) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", limit: 1, default: 0, null: false
     t.text "comment"
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
   end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "family_id"
@@ -42,9 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
   end
 
   create_table "families", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "nickname"
-    t.string "avatar"
+    t.string "name", limit: 255
+    t.string "nickname", limit: 255
+    t.string "avatar", limit: 255
     t.integer "budget"
     t.integer "budget_of_last_month"
     t.datetime "created_at", null: false
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
   end
 
   create_table "notices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
+    t.string "title", limit: 255
     t.text "content"
     t.integer "notice_type", default: 0, null: false
     t.bigint "family_id", null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
   end
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title", limit: 255, null: false
     t.text "description"
     t.integer "points", null: false
     t.bigint "category_id"
@@ -101,9 +101,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
   end
 
   create_table "temporary_family_data", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "nickname"
-    t.string "avatar"
+    t.string "name", limit: 255
+    t.string "nickname", limit: 255
+    t.string "avatar", limit: 255
     t.integer "budget"
     t.bigint "approval_request_id", null: false
     t.datetime "created_at", null: false
@@ -112,18 +112,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_055932) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "crypted_password"
-    t.string "salt"
+    t.string "email", limit: 255, null: false
+    t.string "crypted_password", limit: 255
+    t.string "salt", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", null: false
-    t.string "nickname"
-    t.string "avatar"
+    t.string "name", limit: 255, null: false
+    t.string "nickname", limit: 255
+    t.string "avatar", limit: 255
     t.integer "pocket_money"
     t.bigint "family_id"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.integer "access_count_to_reset_password_page", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["family_id"], name: "index_users_on_family_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "approval_requests", "families"

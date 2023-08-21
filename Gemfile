@@ -56,6 +56,7 @@ gem 'cssbundling-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'dotenv-rails'
+gem 'config'
 # gem 'whenever', require: false
 
 group :development, :test do
@@ -63,6 +64,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'letter_opener_web'
 end
 
 group :development do

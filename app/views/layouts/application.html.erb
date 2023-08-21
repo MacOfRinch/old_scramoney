@@ -12,7 +12,7 @@
   </head>
 
   <body>
-  <% if logged_in? %>
+  <% if current_user.present? %>
     <%= render partial: 'shared/header', user: @user %>
   <% end %>
   <%= render 'shared/flash_messages' %>

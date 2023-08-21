@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = login(params[:email], params[:password])
+    @user = login(params[:email], params[:password], params[:remember])
 
     if @user
       redirect_to family_path(@user.family), success: 'ログインに成功しました！'

@@ -7,7 +7,7 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by(email: params[:email])
     @user.deliver_reset_password_instructions! if @user
-    redirect_to(root_path, notice: 'パスワードリセット方法を送信しました。')
+    redirect_to(login_path, notice: 'パスワードリセット方法を送信しました。')
   end
 
   def edit

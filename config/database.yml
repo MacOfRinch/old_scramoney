@@ -23,12 +23,12 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: ilovemk0206
   socket: /tmp/mysql.sock
 
 development:
   <<: *default
   database: Scramoney_development
+  password: ENV['DB_PASSWORD']
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -63,6 +63,7 @@ development:
 test:
   <<: *default
   database: Scramoney_test
+  password: ENV['DB_PASSWORD']
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

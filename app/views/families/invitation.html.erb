@@ -1,12 +1,24 @@
 <% content_for(:title, '家族の招待') %>
 <div class="container-fluid">
-  <div class="center-block">
+  <div class="center-block bg-light">
     <div class="text-center">
-    <h1>家族の招待</h1>
+    <h1 class="border-bottom py-2">家族の招待</h1>
     </div>
     <div class="col-8 offset-2">
-      <p>下記の招待コードを招待したい家族に共有してください。</p>
-      <p><%= @invitation_code %></p>
+    <% if logged_in? %>
+      <p>このページを招待したい家族に共有してください。</p>
+    <% else %>
+      <p>下記のリンクから新規登録をしてください。</p>
+    <% end %>
+    </div>
+      <div class="text-center py-1">
+      <% if logged_in? %>
+        <p><%= "(招待コード: #{@invitation_code})" %></p>
+      <% else %>
+      <!--URLヘルパーに招待コードの情報を持たせてページ遷移することで、招待コードを書くことなくサインアップできるようにしてるよ。-->
+        <p><%= link_to 'こちらのページから情報を入力してください', invited_path(invitation_code: "#{@invitation_code}") %></p>
+      <% end %>
+      </div>
     </div>
   </div>
 </div>

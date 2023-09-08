@@ -14,7 +14,7 @@ Category.create!(name: '勉強(仕事・資格)')
 Category.create!(name: '学校')
 Category.create!(name: '勉強(学校)')
 Category.create!(name: 'ペット')
-Category.create!(name: 'その他')
+Category.create!(name: 'その他', created_at: 'Fri, 31 Dec 9999 23:59:59.999999999')
 
 # 具体的な家事のタスクにはこんなものがあるよ。もちろん暫定だよ。
 Task.create(title: '朝食の用意', category_name: :housework, points: 50)

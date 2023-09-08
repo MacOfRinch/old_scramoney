@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid bg-light">
   <div class="center-block">
     <div class="text-center">
       <h1>新しいタスクの登録</h1>
@@ -15,7 +15,7 @@
         <%= form_with model: @task, url: family_tasks_path(@family) do |f| %>
           <%= render partial: 'shared/task_form', locals: { f: f } %>
           <div class="text-center">
-            <%= f.submit '登録' %>
+            <%= f.submit '登録', class: "btn btn-success my-2" %>
           </div>
         <% end %>
       </ul>

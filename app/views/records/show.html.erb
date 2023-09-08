@@ -1,14 +1,16 @@
 <!--記録一覧から遷移し、削除機能へのリンクをつけるよ。記録した本人だけが削除できるよ。-->
-<div class="container-fluid">
+<div class="container-fluid bg-light">
   <%= render partial: 'shared/show_task', locals: { task: @task.task } %>
-  <div class="center-block">
+  <div class="center-block mb-3">
     <ul>
     <li>
       <p><%= "カウント：#{@task.count}" %></p>
     </li>
     </ul>
     <% if @user == current_user %>
-      <%= button_to '削除する', family_task_user_path, method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      <div class="text-center">
+        <%= button_to '削除する', family_task_user_path, class: "btn btn-danger mb-3", method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      </div>
     <% end %>
   </div>
 </div>

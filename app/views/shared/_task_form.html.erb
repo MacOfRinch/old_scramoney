@@ -3,7 +3,7 @@
             <%= f.collection_select :category_id, @categories, :id, :name %>
           </li>
           <li>
-            <%= f.label :title, 'タスク：' %>
+            <%= f.label :title, 'タスク名(必須)：' %>
             <%= f.text_field :title, class: 'form-control' %><br>
           </li>
           <li>
@@ -11,6 +11,6 @@
             <%= f.text_field :description, class: 'form-control' %><br>
           </li>
           <li>
-            <%= f.label :points, '基礎ポイント：' %>
+            <%= f.label :points, '基礎ポイント(必須)：' %>
             <%= f.number_field :points %>pt<br>
           </li>

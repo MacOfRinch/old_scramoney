@@ -1,5 +1,5 @@
 <!--記録するタスクの詳細を表示してカウント数を入力・記録するページ-->
-<div class="container-fluid">
+<div class="container-fluid bg-light pt-2">
   <%= render partial: 'shared/show_task', locals: { task: @task } %>
   <div class="">
     <div class="">
@@ -7,7 +7,9 @@
         <%= f.label :count, 'カウント：' %>
         <%= f.number_field :count, value: 1 %><br>
         <!--<%= f.select :count_name, {'回': 0, '時間': 1}, { selected: 0 } %><br>-->
-        <%= f.submit '記録する', method: :post %>
+        <div class="text-center">
+          <%= f.submit '記録する', class: "btn btn-success my-2", method: :post %>
+        </div>
       <% end %>
       <!--<%= button_to '記録する', task_users_family_task_path %>-->
     </div>

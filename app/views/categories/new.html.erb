@@ -1,11 +1,16 @@
-<div class="container-fluid">
+<div class="container-fluid bg-light my-2">
   <% if @category.errors.any? %>
     <% @category.errors.full_messages.each do |error| %>
-      <%= error %>
+      <div class="bg-danger-subtle p-2">
+        <%= error %>
+      </div>
     <% end %>
   <% end %>
+  <h1 class="text-center my-2">新規カテゴリの作成</h1>
   <%= form_with model: @category, url: family_categories_path do |f| %>
     <%= f.text_field :name, class: 'form-control', placeholder: 'カテゴリ名を入力してください' %>
-    <%= f.submit '登録する', class: 'btn btn-primary' %>
+    <div class="text-center my-2">
+      <%= f.submit '登録する', class: 'btn btn-primary my-2' %>
+    </div>
   <% end %>
 </div>

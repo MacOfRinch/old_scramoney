@@ -29,7 +29,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def extension_allowlist
-    %w(jpg jpeg png)
+    %w(jpg jpeg png gif)
   end
   # Process files as they are uploaded:
   # process scale: [200, 300]

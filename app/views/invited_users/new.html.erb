@@ -13,7 +13,7 @@
         <%= render 'shared/new_user_form', { user: @user, f: f } %>
         <div class="form-group">
           <%= f.label :family_id, '招待コード' %>
-          <%= f.text_field :family_id, class: 'form-control' %>
+          <%= f.text_field :family_id, class: 'form-control', value: params[:invitation_code] %>
         </div>
         <%= f.submit '登録', class: "btn btn-primary" %>
       <% end %>

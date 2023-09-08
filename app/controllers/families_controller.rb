@@ -1,6 +1,6 @@
 class FamiliesController < ApplicationController
-  skip_before_action :require_login, only: %i[new create]
-  skip_before_action :set_family, only: %i[new create]
+  skip_before_action :require_login, only: %i[new create invitation]
+  skip_before_action :set_family, only: %i[new create invitation]
   # after_action :initialize_categories_and_tasks, only: :create
 
   def new
@@ -15,7 +15,7 @@ class FamiliesController < ApplicationController
     if @family.save
       redirect_to new_family_user_path(@family), success: '家族を登録しました'
     else
-      falsh.now[:danger] = '家族の登録に失敗しました'
+      flash.now[:danger] = '家族の登録に失敗しました'
       render :new
     end
   end
@@ -38,7 +38,6 @@ class FamiliesController < ApplicationController
       # 一時的に変更後のデータを保存するよ。
       TemporaryFamilyDatum.create!(approval_request_id: approval_request.id, name: @family.name, nickname: @family.nickname, avatar: @family.avatar, budget: @family.budget)
       redirect_to family_path(@family), success: 'プロフィール編集の承認依頼を送りました'
-
     else
       flash.now[:danger] = '入力内容に誤りがあります'
       render :edit, status: :unprocessable_entity
@@ -49,7 +48,13 @@ class FamiliesController < ApplicationController
   def modify_budget; end
 
   def invitation
-    @invitation_code = current_user.family_id
+    if logged_in?
+      @family = current_user.family
+      @invitation_code = current_user.family_id
+    else
+      # URLに書かれてるfamily_idを招待コードとして取得しておくよ。
+      @invitation_code = params[:family_id]
+    end
   end
 
   private

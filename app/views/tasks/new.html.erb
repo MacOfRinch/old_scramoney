@@ -5,13 +5,13 @@
     </div>
   </div>
   <div class="center-block">
-    <div class="">
+    <div id="error-explanation">
     <% if @task.errors.any? %>
-      <div class="bg-danger">
+      <ul>
         <%= @task.errors.full_messages.each do |message| %>
-          <%= message %><br>
+          <li><%= message %></li>
         <% end %>
-      </div>
+      </ul>
     <% end %>
       <ul>
         <%= form_with model: @task, url: family_tasks_path(@family) do |f| %>

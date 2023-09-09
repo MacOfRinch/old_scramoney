@@ -1,6 +1,6 @@
           <li>
             <%= f.label :category_id, 'カテゴリ：' %>
-            <%= f.collection_select :category_id, @categories, :id, :name %>
+            <%= f.collection_select :category_id, Category.where(family_id: @family.id), :id, :name %>
           </li>
           <li>
             <%= f.label :title, 'タスク名(必須)：' %>

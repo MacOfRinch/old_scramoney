@@ -7,9 +7,11 @@
   <div class="center-block">
     <div class="">
     <% if @task.errors.any? %>
-      <%= @task.errors.full_messages do |message| %>
-        <%= message %>
-      <% end %>
+      <div class="bg-danger">
+        <%= @task.errors.full_messages.each do |message| %>
+          <%= message %><br>
+        <% end %>
+      </div>
     <% end %>
       <ul>
         <%= form_with model: @task, url: family_tasks_path(@family) do |f| %>

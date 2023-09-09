@@ -22,9 +22,9 @@
           <p><%= "基礎ポイント：#{@task.points} pt" %></p>
         </li>
       </ul>
-    <%= link_to '編集', edit_family_task_path, class: 'btn btn-primary' %>
+    <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary' %>
     <div class="float-end">
-      <%= button_to 'タスクを削除する', family_task_path, method: :delete, data: { confirm: '今までの履歴からも削除されます。よろしいですか？' } %>
+      <%= button_to 'タスクを削除する', family_task_path(@family, @task), method: :delete, data: { confirm: '今までの履歴からも削除されます。よろしいですか？' } %>
     </div>
     </div>
   </div>

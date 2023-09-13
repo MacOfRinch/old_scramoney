@@ -52,6 +52,10 @@ class Family < ApplicationRecord
     default_categories.each do |category|
       new_category = category.dup
       new_category.family_id = self.id
+      # その他を常に最後にしたいからcreaated_atの値をいじるよ。
+      if new_category.name == 'その他'
+        new_category.created_at = 'Fry, 31 Dec 9999 23:59:59'
+      end
       new_category.save
     end
 

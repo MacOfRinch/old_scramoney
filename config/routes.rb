@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :password_resets, only: [:new, :create, :edit, :update]
+  post 'google_login_api/callback', to: 'google_login_api#callback'
   get 'approval_requests/approve'
   get 'approval_requests/refuse'
   get 'approve/refuse'

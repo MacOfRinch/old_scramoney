@@ -1,11 +1,11 @@
 <% content_for(:title, 'タスク管理') %>
 <div class="container-fluid">
-  <div class="center-block">
-    <div class="text-center">
+  <div class="center-block bg-light py-2">
+    <div class="text-center border-bottom">
       <h1>タスク管理</h1>
     </div>
-    <div class="center-block">
-    <div class="">
+    <div class="center-block bg-light pt-2">
+    <div>
       <ul>
         <li>
           <p><%= "カテゴリ：#{@task.category.name}" %></p>
@@ -22,9 +22,9 @@
           <p><%= "基礎ポイント：#{@task.points} pt" %></p>
         </li>
       </ul>
-    <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary' %>
+    <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary ms-2' %>
     <div class="float-end">
-      <%= button_to 'タスクを削除する', family_task_path(@family, @task), class: 'btn btn-danger',method: :delete, data: { confirm: '今までの履歴からも削除されます。よろしいですか？' } %>
+      <%= button_to 'タスクを削除する', family_task_path(@family, @task), class: 'btn btn-danger me-2',method: :delete, data: { confirm: '今までの履歴からも削除されます。よろしいですか？' } %>
     </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
-  create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "status", limit: 1, default: 0, null: false
     t.text "comment"
     t.bigint "user_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["user_id"], name: "index_approval_requests_on_user_id"
   end
 
-  create_table "approval_statuses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "approval_statuses", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "status", limit: 1, default: 0, null: false
     t.text "comment"
     t.bigint "approval_request_id", null: false
@@ -33,26 +33,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["user_id"], name: "index_approval_statuses_on_user_id"
   end
 
-  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "family_id"
     t.index ["family_id"], name: "index_categories_on_family_id"
   end
 
-  create_table "families", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "nickname", limit: 255
-    t.string "avatar", limit: 255
+  create_table "families", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "nickname"
+    t.string "avatar"
     t.integer "budget"
     t.integer "budget_of_last_month"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "notices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", limit: 255
+  create_table "notices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "title"
     t.text "content"
     t.integer "notice_type", default: 0, null: false
     t.bigint "family_id", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["user_id"], name: "index_notices_on_user_id"
   end
 
-  create_table "reads", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "reads", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.boolean "checked", default: false
     t.bigint "notice_id", null: false
     t.bigint "user_id", null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["user_id"], name: "index_reads_on_user_id"
   end
 
-  create_table "task_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "task_users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "task_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -87,8 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["user_id"], name: "index_task_users_on_user_id"
   end
 
-  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
+  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "title", null: false
     t.text "description"
     t.integer "points", null: false
     t.bigint "category_id"
@@ -100,10 +100,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["family_id"], name: "index_tasks_on_family_id"
   end
 
-  create_table "temporary_family_data", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "nickname", limit: 255
-    t.string "avatar", limit: 255
+  create_table "temporary_family_data", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "nickname"
+    t.string "avatar"
     t.integer "budget"
     t.bigint "approval_request_id", null: false
     t.datetime "created_at", null: false
@@ -111,15 +111,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
     t.index ["approval_request_id"], name: "index_temporary_family_data_on_approval_request_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "email", limit: 255, null: false
-    t.string "crypted_password", limit: 255
-    t.string "salt", limit: 255
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", limit: 255, null: false
-    t.string "nickname", limit: 255
-    t.string "avatar", limit: 255
+    t.string "name", null: false
+    t.string "nickname"
+    t.string "avatar"
     t.integer "pocket_money"
     t.bigint "family_id"
     t.string "reset_password_token"

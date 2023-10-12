@@ -2,11 +2,10 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :password_resets, only: [:new, :create, :edit, :update]
   post 'google_login_api/callback', to: 'google_login_api#callback'
-  get 'approval_requests/approve'
-  get 'approval_requests/refuse'
-  get 'approve/refuse'
+  # get 'approval_requests/approve'
+  # get 'approval_requests/refuse'
+  # get 'approve/refuse'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root "user_sessions#new"
 
   resources :families, only: %i[new create show edit update] do
     resources :users, only: %i[new create edit update destroy]
@@ -40,4 +39,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user_sessions#destroy'
   # Defines the root path route ("/")
   # root "articles#index"
+  root "home#top"
 end

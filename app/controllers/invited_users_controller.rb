@@ -15,7 +15,7 @@ class InvitedUsersController < ApplicationController
       redirect_to family_path(family), success: 'Scramoneyへようこそ!'
     else
       flash.now[:danger] = '入力内容に誤りがあります'
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -96,6 +96,7 @@ GEM
       marcel (~> 1.0.0)
       ssrf_filter (~> 1.0)
     chartkick (5.0.3)
+    chunky_png (1.4.0)
     concurrent-ruby (1.2.2)
     config (4.2.1)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -284,6 +285,13 @@ GEM
     reline (0.3.8)
       io-console (~> 0.5)
     rexml (3.2.6)
+    rqrcode (2.2.0)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 1.0)
+    rqrcode_core (1.2.0)
+    rqrcode_png (0.1.5)
+      chunky_png
+      rqrcode
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -381,6 +389,7 @@ DEPENDENCIES
   capybara
   carrierwave
   chartkick
+  chunky_png
   config
   cssbundling-rails
   debug
@@ -395,6 +404,8 @@ DEPENDENCIES
   mysql2
   puma (~> 5.0)
   rails (~> 7.0.5.pre.1)
+  rqrcode
+  rqrcode_png
   rspec-rails
   sass (~> 3.7)
   sassc-rails

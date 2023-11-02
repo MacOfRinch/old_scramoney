@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "status", limit: 1, default: 0, null: false
     t.text "comment"

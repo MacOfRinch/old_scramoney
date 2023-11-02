@@ -4,8 +4,12 @@
     <div class="text-center">
     <h1 class="border-bottom py-2">家族の招待</h1>
     </div>
-    <div class="col-8 offset-2">
+    <div class="text-center">
     <% if logged_in? %>
+      <% if @family.users.size <= 1 %>
+        <h2>ステップ2:家族の招待</h2>
+        <p>このページは、設定→家族の招待でいつでも表示できます。</p>
+      <% end %>
       <p>このページを招待したい家族に共有してください。</p>
     <% else %>
       <p>Scramoneyへようこそ！</p>
@@ -15,11 +19,11 @@
       <div class="text-center py-1">
       <% if logged_in? %>
         <p><%= "(招待コード: #{@invitation_code})" %></p>
-        <%= image_tag show_qrcode(family_invitation_path) %>
+        <%= image_tag show_qrcode(family_invitation_path, 200) %>
         <p>上記のQRコードでも招待可能です。</p>
       <% else %>
       <!--URLヘルパーに招待コードの情報を持たせてページ遷移することで、招待コードを書くことなくサインアップできるようにしてるよ。-->
-        <p><%= link_to 'こちらのページから情報を入力してください', invited_path(invitation_code: "#{@invitation_code}") %></p>
+        <p><%= link_to 'こちらのページから情報を入力してください', new_invited_path(invitation_code: "#{@invitation_code}") %></p>
       <% end %>
       </div>
     </div>

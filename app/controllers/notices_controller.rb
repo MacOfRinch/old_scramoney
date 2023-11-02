@@ -1,5 +1,6 @@
-class NoticesController < ApplicationController
+# frozen_string_literal: true
 
+class NoticesController < ApplicationController
   def create
     @notice = Notice.new
   end
@@ -12,34 +13,36 @@ class NoticesController < ApplicationController
   def show
     @notice = Notice.find(params[:id])
     @users = @family.users
-    if Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
-      @read = Read.update(user_id: current_user.id, notice_id: @notice.id, checked: true)
+    read = Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
+    if read
+      read.update(checked: true)
     end
     # このままでは月が過ぎると自動的に先月になってしまうから直さねばならぬ
     @each_name_points = each_name_points_of_last_month(@users)
     @each_pocket_money = each_pocket_money_of_last_month(@users)
-    if @notice.notice_type == "approval_request"
-      @request = ApprovalRequest.find(@notice.approval_request_id)
-      @new_family_data = TemporaryFamilyDatum.find_by(approval_request_id: @notice.approval_request_id)
-    end
+    return unless @notice.notice_type == 'approval_request'
+
+    @request = ApprovalRequest.find(@notice.approval_request_id)
+    @new_family_data = TemporaryFamilyDatum.find_by(approval_request_id: @notice.approval_request_id)
   end
 
   def show_approval_request
     @notice = Notice.find(params[:notice_id])
     @users = @family.users
-    if Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
-      @read = Read.update(user_id: current_user.id, notice_id: @notice.id, checked: true)
+    read = Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
+    if read
+      read.update(checked: true)
     end
-    
-    if @notice.notice_type == "approval_request"
-      @request = ApprovalRequest.find(@notice.approval_request_id)
-      @new_family_data = TemporaryFamilyDatum.find_by(approval_request_id: @notice.approval_request_id)
-    end
+
+    return unless @notice.notice_type == 'approval_request'
+
+    @request = ApprovalRequest.find(@notice.approval_request_id)
+    @new_family_data = TemporaryFamilyDatum.find_by(approval_request_id: @notice.approval_request_id)
   end
 
   def destroy
-    @notice = Notice.find(params[:id])
-    @notice.destroy!
+    notice = Notice.find(params[:id])
+    notice.destroy!
   end
 
   private
@@ -47,8 +50,8 @@ class NoticesController < ApplicationController
   def each_name_points_of_last_month(users)
     result = []
     users.each do |user|
-      array = nil
-      array = ["#{display_name(user)}:#{user.sum_points_of_last_month}pt (#{user.percent_of_last_month}%)", user.sum_points_of_last_month]
+      array = ["#{display_name(user)}:#{user.sum_points_of_last_month}pt (#{user.percent_of_last_month}%)",
+               user.sum_points_of_last_month]
       result << array
     end
     result
@@ -57,11 +60,10 @@ class NoticesController < ApplicationController
   def each_pocket_money_of_last_month(users)
     result = []
     users.each do |user|
-      array = nil
-      array = ["#{display_name(user)}:#{user.calculate_pocket_money_of_last_month.to_s(:delimited)}円", user.calculate_pocket_money_of_last_month]
+      array = ["#{display_name(user)}:#{user.calculate_pocket_money_of_last_month.to_s(:delimited)}円",
+               user.calculate_pocket_money_of_last_month]
       result << array
     end
     result
   end
-
 end

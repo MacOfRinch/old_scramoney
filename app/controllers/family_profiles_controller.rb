@@ -1,15 +1,16 @@
-class FamilyProfilesController < ApplicationController
-  def show
-  end
+# frozen_string_literal: true
 
-  def edit
-  end
+class FamilyProfilesController < ApplicationController
+  def show; end
+
+  def edit; end
 
   def update
     @family.assign_attributes(family_params)
     if @family.valid?
       approval_request = ApprovalRequest.create(family_id: @family.id, user_id: current_user.id)
-      TemporaryFamilyDatum.create(approval_request_id: approval_request.id, name: @family.name, nickname: @family.nickname, avatar: @family.avatar, budget: @family.budget)
+      TemporaryFamilyDatum.create(approval_request_id: approval_request.id, name: @family.family_name,
+                                  nickname: @family.family_nickname, avatar: @family.family_avatar, budget: @family.budget)
       send_approval_request(approval_request)
       redirect_to family_path(@family), success: 'プロフィール編集の承認依頼を送りました'
 
@@ -22,7 +23,7 @@ class FamilyProfilesController < ApplicationController
   private
 
   def family_params
-    params.require(:family).permit(:name, :nickname, :avatar, :avatar_cache, :budget)
+    params.require(:family).permit(:family_name, :family_nickname, :family_avatar, :family_avatar_cache, :budget)
   end
 
   def send_approval_request(approval_request)
@@ -33,7 +34,8 @@ class FamilyProfilesController < ApplicationController
         ApprovalStatus.create(approval_request_id: approval_request.id, user_id: user.id, status: :accept)
       else
         ApprovalStatus.create(approval_request_id: approval_request.id, user_id: user.id)
-        notice = Notice.create(title: '家族プロフィール変更の承認依頼', family_id: @family.id, user_id: user.id, notice_type: :approval_request, approval_request_id: approval_request.id)
+        notice = Notice.create(title: '家族プロフィール変更の承認依頼', family_id: @family.id, user_id: user.id,
+                               notice_type: :approval_request, approval_request_id: approval_request.id)
         Read.create!(notice_id: notice.id, user_id: user.id, checked: false)
       end
     end

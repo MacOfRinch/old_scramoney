@@ -2,17 +2,19 @@
   <div class="text-center">
     <h1>新しい承認依頼が届いています</h1>
     <p>以下の変更を承認しますか？</p>
-    <p><%= "家族名：#{family.name} -> #{new_data.name}" %></p>
-    <p><%= "ニックネーム：#{family.nickname} -> #{new_data.nickname}" %></p>
+    <p><%= "家族名：#{family.family_name} -> #{new_data.name}" %></p>
+    <p><%= "ニックネーム：#{family.family_nickname} -> #{new_data.nickname}" %></p>
     <p><%= "お小遣い予算：#{family.budget} -> #{new_data.budget}" %></p>
   </div>
   <% case ApprovalStatus.find_by(approval_request_id: request.id, user_id: current_user.id).status %>
   <% when "waiting" %>
-  <div class="col-6">
-    <%= button_to '承認', approve_family_path(request), class: 'btn btn-primary' %>
-  </div>
-  <div class="col-6">
-    <%= button_to '拒否', refuse_family_path(request), class: 'btn btn-danger' %>
+  <div class="row">
+    <div class="col-6 text-center">
+      <%= button_to '承認', approve_family_path(request), class: 'btn btn-primary' %>
+    </div>
+    <div class="col-6 text-center">
+      <%= button_to '拒否', refuse_family_path(request), class: 'btn btn-danger' %>
+    </div>
   </div>
   <% when "accept" %>
   <div class="text-center"><p>承認済みです</p></div>

@@ -42,10 +42,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_034613) do
   end
 
   create_table "families", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "nickname"
-    t.string "avatar"
-    t.integer "budget"
+    t.string "family_name", null: false
+    t.string "family_nickname"
+    t.string "family_avatar"
+    t.integer "budget", null: false
     t.integer "budget_of_last_month"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

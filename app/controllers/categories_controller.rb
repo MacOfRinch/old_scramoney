@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   before_action :set_category
   skip_before_action :set_category, only: %i[new create index]
@@ -25,9 +27,7 @@ class CategoriesController < ApplicationController
     @tasks = Task.where(category_id: params[:id])
   end
 
-  def edit
-
-  end
+  def edit; end
 
   def destroy
     @category = Category.find(params[:id])

@@ -6,16 +6,11 @@
     </div>
   </div>
   <div class="center-block">
-    <table class="table table-striped">
-      <thead class="thead-dark">
-      <tr>
-        <th>タスク名</th>
-        <th>pt</th>
-      </tr>
-      </thead>
-      <tbody>
+    <div class="row bg-light py-2 border-top mx-auto">
+      <div class="col-1"></div>
+      <div class="col-8"><strong>タスク名</strong></div>
+      <div class="col-3"><strong>pt</strong></div>
+    </div>
         <%= render partial: 'task', collection: @tasks, locals: { family: @family, category: @category } %>
-      </tbody>
-    </table>
   </div>
 </div>

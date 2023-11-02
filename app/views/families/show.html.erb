@@ -5,15 +5,19 @@
       <%= "総取得ポイント: #{@family.sum_points}pt" %>
     </div>
   </div>
-  <% if @family.sum_points != 0 %>
-    <%= pie_chart @each_name_points, id: 'pie-chart' %><br>
-  <% else %>
+  <% if @family.users.size < 2 %>
+    <div class="text-center bg-light"><p>ステップ2を終えていません：<%= link_to 'まずはこちらから家族を招待しましょう！', family_invitation_path(@family) %></p></div>
+  <% elsif @family.sum_points <= 0 %>
     <div class="text-center bg-light"><p>今月のデータがありません</p></div>
-  <% end %>
-  <div class="center-block bg-light">
-    <div class="text-center">
-      <%= "お小遣い予算: #{@family.budget.to_s(:delimited)}円" %>
+  <% elsif @family.monopolized_by_one? %>
+    <div class="text-center bg-light"><p>2人以上の記録がありません：みんなで記録して始めましょう！</p></div>
+  <% else %>
+    <%= pie_chart @each_name_points, id: 'pie-chart' %>
+    <div class="center-block bg-light">
+      <div class="text-center">
+        <%= "お小遣い予算: #{@family.budget.to_s(:delimited)}円" %>
+      </div>
     </div>
+    <%= column_chart @each_pocket_money, id: 'column-chart' %>
+  <% end %>
   </div>
-  <%= column_chart @each_pocket_money %>
-</div>

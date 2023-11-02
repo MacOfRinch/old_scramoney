@@ -1,5 +1,6 @@
-class RecordsController < ApplicationController
+# frozen_string_literal: true
 
+class RecordsController < ApplicationController
   include UsersHelper
 
   # 履歴だよ。
@@ -13,9 +14,7 @@ class RecordsController < ApplicationController
     @tasks = Task.where(family_id: @family.id)
   end
 
-  def create
-
-  end
+  def create; end
 
   # カテゴリ一覧から飛べるタスク一覧ページのコントローラだよ。
   def task_index
@@ -34,9 +33,7 @@ class RecordsController < ApplicationController
     @user = @task.user
   end
 
-  def edit
-  end
+  def edit; end
 
-  def update
-  end
+  def update; end
 end

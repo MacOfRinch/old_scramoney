@@ -8,18 +8,18 @@
         <tr>
           <th scope="row">名前</th>
           <td>
-            <%= @family.name %>
+            <%= @family.family_name %>
           </td>
         </tr>
         <tr>
           <th scope="row">ニックネーム</th>
-          <td><%= @family.nickname %></td>
+          <td><%= @family.family_nickname %></td>
         </tr>
         <!--<tr>
-        <% if @family.avatar.present? %>
+        <% if @family.family_avatar.present? %>
           <th scope="row">アバター</th>
           <td>
-            <%= image_tag @family.avatar.url, class: 'rounded-circle mr-15', size: '100x100' %>
+            <%= image_tag @family.family_avatar.url, class: 'rounded-circle mr-15', size: '100x100' %>
           </td>
         <% end %>
         </tr>-->

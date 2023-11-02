@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApprovalStatus < ApplicationRecord
   belongs_to :approval_request
   belongs_to :approver, class_name: 'User', foreign_key: :user_id

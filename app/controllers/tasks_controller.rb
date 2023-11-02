@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update]
 
@@ -22,8 +24,7 @@ class TasksController < ApplicationController
     @tasks = Task.includes(:category).where(family_id: @family.id)
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     @categories = Category.where(family_id: @family.id)
@@ -45,8 +46,8 @@ class TasksController < ApplicationController
     task.destroy!
     redirect_to family_categories_path(@family), success: '削除しました', status: :see_other
     # else
-      # flash.now[:danger] = '削除権限がありません'
-      # render :show
+    # flash.now[:danger] = '削除権限がありません'
+    # render :show
     # end
   end
 

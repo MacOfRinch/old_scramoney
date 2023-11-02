@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvitedUsersController < ApplicationController
   skip_before_action :set_family
   skip_before_action :require_login

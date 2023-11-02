@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -20,16 +22,16 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url(*args)
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  "default.jpeg"
+  def default_url(*_args)
+    #   # For Rails 3.1+ asset pipeline compatibility:
+    #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+    #
+    #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+    'default.jpeg'
   end
 
   def extension_allowlist
-    %w(jpg jpeg png gif)
+    %w[jpg jpeg png gif]
   end
   # Process files as they are uploaded:
   # process scale: [200, 300]

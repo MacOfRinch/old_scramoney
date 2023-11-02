@@ -1,5 +1,6 @@
-class ApprovalRequest < ApplicationRecord
+# frozen_string_literal: true
 
+class ApprovalRequest < ApplicationRecord
   has_many :approval_statuses
   has_many :notices
   has_one :temporary_family_data

@@ -1,5 +1,7 @@
 <%= turbo_frame_tag category do %>
-  <tr>
-    <td><%= link_to category.name, task_index_family_record_path(@family, category), class: 'text-decoration-none link-dark wide-link' %></td>
-  </tr>
+  <%= link_to task_index_family_record_path(@family, category), class: "text-decoration-none text-body" do %>
+    <div class="row bg-secondary-subtle py-2 my-1 mx-auto rounded">
+      <div class="col-12"><%= "▶︎　#{category.name}" %></div>
+    </div>
+  <% end %>
 <% end %>

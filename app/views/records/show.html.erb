@@ -1,7 +1,7 @@
 <!--記録一覧から遷移し、削除機能へのリンクをつけるよ。記録した本人だけが削除できるよ。-->
 <div class="container-fluid bg-light">
   <%= render partial: 'shared/show_task', locals: { task: @task.task } %>
-  <div class="center-block mb-3">
+  <div class="center-block mb-3 pb-1">
     <ul>
     <li>
       <p><%= "カウント：#{@task.count}" %></p>

@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="">
+    <div class="col-12">
+      <h1>2つのステップを終えて始めましょう！</h1>
       <% if @family.errors.any? %>
         <div class="alert alert-danger">
           <% @family.errors.full_messages.each do |message| %>
@@ -8,7 +9,7 @@
           <% end %>
         </div>
       <% end %>
-      <h1>あなたの家族について教えてください</h1>
+      <h2>ステップ1:あなたの家族について教えてください</h2>
       <%= form_with model: @family, local: true do |f| %>
         <%= render "form", { family: @family, f: f } %>
       <% end %>

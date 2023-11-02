@@ -1,6 +1,9 @@
 <%= turbo_frame_tag task do %>
-  <tr>
-    <td><%= link_to task.title, task_show_family_record_path(family, task), class: 'text-decoration-none link-dark wide-link' %></td>
-    <td><%= link_to task.points, task_show_family_record_path(family, task), class: 'text-decoration-none link-dark wide-link' %></td>
-  </tr>
+  <%= link_to task_show_family_record_path(family, task), class: "text-decoration-none text-body" do %>
+    <div class="row bg-secondary-subtle py-2 mt-2 mx-auto rounded">
+      <div class="col-1">▶︎</div>
+      <div class="col-8"><%= task.title %></div>
+      <div class="col-3"><%= task.points %></div>
+    </div>
+  <% end %>
 <% end %>

@@ -1,9 +1,10 @@
 
-  <tr>
-    <div class="center-block">
-      <td><%= link_to (task.user.nickname.present? ? task.user.nickname : task.user.name), family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
-      <td><%= link_to (task.count >= 2 ? "#{task.task.title} x #{task.count}" : task.task.title), family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
-      <td><%= link_to task.task.points * task.count.to_i, family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
-      <td><%= link_to l(task.created_at, format: :short), family_record_path(task.user.family, task), class: "text-decoration-none link-dark wide-link" %></td>
-    </div>
-  </tr>
+<%= link_to family_record_path(task.user.family, task), class: "text-decoration-none text-body" do %>
+  <div class="row bg-secondary-subtle py-2 my-2 mx-auto rounded">
+    <div class="col-1 d-flex align-items-center">▶︎</div>
+    <div class="col-3 d-flex align-items-center"><%= task.user.nickname.present? ? task.user.nickname : task.user.name %></div>
+    <div class="col-4 d-flex align-items-center"><%= task.count >= 2 ? "#{task.task.title} x #{task.count}" : task.task.title %></div>
+    <div class="col-1 d-flex align-items-center"><%= task.task.points * task.count.to_i %></div>
+    <div class="col-3 d-flex align-items-center"><%= l(task.created_at, format: :short) %></div>
+  </div>
+<% end %>

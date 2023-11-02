@@ -1,17 +1,14 @@
 <div class="container-fluid">
   <div class="center-block">
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>カテゴリ名</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @categories.each do |category| %>
-          <%= render partial: 'category_for_record', locals: { category: category } %>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="text-center bg-light py-2 rounded"><h1>記録</h1></div>
+    <div class="row mx-auto">
+      <div class="col-12 bg-light py-2 mt-2 mx-auto">
+        <strong>カテゴリ名</strong>
+      </div>
+      <% @categories.each do |category| %>
+        <%= render partial: 'category_for_record', locals: { category: category } %>
+      <% end %>
+      
   </div>
   <div>　</div>
 </div>

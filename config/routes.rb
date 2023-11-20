@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :password_resets, only: [:new, :create, :edit, :update]
+  post 'line_events', to: 'line_events#recieve'
   post 'google_login_api/callback', to: 'google_login_api#callback'
   resources :formats, only: %i[new create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  post "oauth/callback", to: "oauths#callback"
+  get "oauth/callback", to: "oauths#callback"
+  get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
 
-  resources :families, only: :show do
-    resources :users, only: :destroy
+  resources :families, only: %i[show edit update destroy] do
+    resources :users, only: %i[destroy] do
+      get :line_associate
+    end
     resource :user_profile, only: %i[show edit update]
     resources :tasks do
       get :menu, on: :collection
@@ -24,6 +30,7 @@ Rails.application.routes.draw do
     end
     get :configuration
     get :invitation
+    get :advanced_configuration
     post :approve, to: 'approval_requests#approve', on: :member
     post :refuse, to: 'approval_requests#refuse', on: :member
   end

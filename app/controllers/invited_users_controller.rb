@@ -9,15 +9,25 @@ class InvitedUsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.pocket_money = 0
-    if @user.save
-      auto_login(@user)
-      family = Family.find(params[:user][:family_id])
-      redirect_to family_path(family), success: 'Scramoneyへようこそ!'
+    # 他の家族でログインしている人を統合する処理だよ。
+    if logged_in?
+      old_family = current_user.family
+      new_family = Family.find_by(id: params[:invitation_code])
+      current_user.update_column(:family_id, new_family.id)
+      old_family.destroy! if old_family.users.size == 0
+      redirect_to family_path(new_family), success: "#{new_family.family_name}家(#{new_family.family_nickname})に招待され、メンバーに加わりました！"
     else
-      flash.now[:danger] = '入力内容に誤りがあります'
-      render :new, status: :unprocessable_entity
+      # 通常の招待処理だよ。
+      @user = User.new(user_params)
+      @user.pocket_money = 0
+      if @user.save
+        auto_login(@user)
+        family = Family.find(params[:user][:family_id])
+        redirect_to family_path(family), success: 'Scramoneyへようこそ!'
+      else
+        flash.now[:danger] = '入力内容に誤りがあります'
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 

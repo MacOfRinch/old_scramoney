@@ -13,13 +13,24 @@ class User < ApplicationRecord
   has_many :approval_statuses
   has_many :notices, dependent: :destroy
   has_many :reads, dependent: :destroy
-  belongs_to :family
+  has_many :authentications, dependent: :destroy
+  has_one :nonce
+  accepts_nested_attributes_for :authentications
+  belongs_to :family, optional: true
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :reset_password_token, uniqueness: true, allow_nil: true
+  validates :line_user_id, uniqueness: true
+
+  attr_accessor :linkToken
+
+  # sorceryのload_from_providerで使うメソッドだよ。
+  def self.find_by_oauth_provider(provider, uid)
+    find_by(provider: provider, line_user_id: uid)
+  end
 
   def cancel(task)
     task_users.destroy(task)
@@ -39,18 +50,18 @@ class User < ApplicationRecord
   def percent
     total = family.sum_points
     if total.zero?
-      1 / family.users.size
+      1.0 / family.users.size
     else
-      sum_points * 100 / total
+      sum_points * 100.0 / total
     end
   end
 
   def percent_of_last_month
     total = family.sum_points_of_last_month
     if total.zero?
-      1 / family.users.size
+      1.0 / family.users.size
     else
-      sum_points_of_last_month * 100 / total
+      sum_points_of_last_month * 100.0 / total
     end
   end
 
@@ -109,7 +120,6 @@ class User < ApplicationRecord
   end
 
   def calculate_rounded_down_pocket_money_of_last_month
-    # こいつが犯人だよ
     total = family.budget_of_last_month
     if family.sum_points_of_last_month.zero?
       pm = (total / family.users.size)
@@ -119,5 +129,9 @@ class User < ApplicationRecord
     end
     rounded_down = (pm / Unit).to_i * Unit
     { rounded_down:, diff: (pm - rounded_down) }
+  end
+
+  def link_line_account(line_auth)
+    update_columns(line_user_id: line_auth.uid, provider: 'line')
   end
 end

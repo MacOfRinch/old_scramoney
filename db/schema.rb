@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_20_144602) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "status", limit: 1, default: 0, null: false
     t.text "comment"
@@ -33,6 +33,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
     t.index ["user_id"], name: "index_approval_statuses_on_user_id"
   end
 
+  create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+    t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
+
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -49,6 +59,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
     t.integer "budget_of_last_month"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "nonces", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "nonce", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_nonces_on_user_id"
   end
 
   create_table "notices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -112,7 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.string "email", null: false
+    t.string "email"
     t.string "crypted_password"
     t.string "salt"
     t.datetime "created_at", null: false
@@ -128,8 +147,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
     t.integer "access_count_to_reset_password_page", default: 0
     t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.string "provider"
+    t.string "line_user_id"
+    t.boolean "line_flag", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["family_id"], name: "index_users_on_family_id"
+    t.index ["line_user_id"], name: "index_users_on_line_user_id", unique: true
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
@@ -139,6 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_175427) do
   add_foreign_key "approval_statuses", "approval_requests"
   add_foreign_key "approval_statuses", "users"
   add_foreign_key "categories", "families"
+  add_foreign_key "nonces", "users"
   add_foreign_key "notices", "approval_requests"
   add_foreign_key "notices", "families"
   add_foreign_key "notices", "users"

@@ -3,6 +3,7 @@
 module ApplicationHelper
   require 'rqrcode'
   require 'chunky_png'
+  require 'securerandom'
 
   def page_title(page_title = '')
     base_title = 'Scramoney'
@@ -17,7 +18,7 @@ module ApplicationHelper
     if Rails.env.production?
       qrcode = RQRCode::QRCode.new("https://scramoney-e5c31290853e.herokuapp.com#{url}")
     elsif Rails.env.development? || Rails.env.test?
-      qrcode = RQRCode::QRCode.new("http://localhost:3000#{url}")
+      qrcode = RQRCode::QRCode.new("https://a0b5-115-37-180-231.ngrok-free.app#{url}")
     end
     ChunkyPNG::Image.from_datastream(qrcode.as_png.resize(size, size).to_datastream).to_data_url
   end

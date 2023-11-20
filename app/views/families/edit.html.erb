@@ -1,12 +1,17 @@
-<% content_for(:title, '家族プロフィールの編集') %>
-<div class="container-fluid">
-  <div class="center-block">
-    <div class="text-center">
-    <h1>家族プロフィールの編集</h1>
-    </div>
-    <div class="col-8 offset-2">
-      <%= form_with model: @family, url: family_path(@family), local: true do |f| %>
-        <%= render 'form', f: f %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <% if @family.errors.any? %>
+        <div class="alert alert-danger">
+          <% @family.errors.full_messages.each do |message| %>
+            <%= message %><br>
+          <% end %>
+        </div>
+      <% end %>
+      <h1 class="col-12 text-center bg-light">2つのステップを終えて始めましょう！</h1>
+      <h2 class="col-12 text-center bg-light">ステップ1:あなたの家族について教えてください</h2>
+      <%= form_with model: @family, url: family_path, local: true do |f| %>
+        <%= render "form", { family: @family, f: f } %>
       <% end %>
     </div>
   </div>

@@ -3,8 +3,20 @@
 class UsersController < ApplicationController
 
   def destroy
-    user = User.find(params[:id])
-    user.destroy!
-    redirect_to family_path(@family)
+    @family = Family.find_by(id: params[:family_id])
+    @user = User.find_by(family_id: params[:family_id], id: params[:id])
+    if @user == current_user
+      @user.destroy!
+      redirect_to root_path, success: 'ユーザー情報を削除しました'
+    else
+      redirect_to root_path, danger: '無効な操作です'
+    end
+  end
+
+  def line_associate
+    @user = current_user
+    unless @user.family == Family.find_by(id: params[:family_id])
+      redirect_to root_path, danger: '無効な操作です'
+    end
   end
 end

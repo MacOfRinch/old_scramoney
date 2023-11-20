@@ -2,6 +2,7 @@ class OauthsController < ApplicationController
   require 'securerandom'
   skip_before_action :require_login, raise: false
   skip_before_action :set_family
+  protect_from_forgery :except => [:callback]
 
   def oauth
     login_at(auth_params[:provider])

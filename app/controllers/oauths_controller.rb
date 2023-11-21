@@ -45,24 +45,4 @@ class OauthsController < ApplicationController
     end
     fake_email
   end
-
-  # login_fromはsorceryに実装されてるメソッドだけど、検証するために今一度書いたよ。
-  def login_from(provider_name, should_remember = false)
-    sorcery_fetch_user_hash provider_name
-
-    return unless (user = user_class.load_from_provider(provider_name, @user_hash[:uid].to_s))
-
-    # we found the user.
-    # clear the session
-    return_to_url = session[:return_to_url]
-    reset_sorcery_session
-    session[:return_to_url] = return_to_url
-
-    # sign in the user
-    auto_login(user, should_remember)
-    after_login!(user)
-
-    # return the user
-    user
-  end
 end

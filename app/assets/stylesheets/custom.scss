@@ -10,4 +10,10 @@ a.wide-link {
   background-repeat: no-repeat; /* 背景画像を繰り返し表示しないようにする */
   background-attachment: fixed;
   background-position: center center;
+  margin-bottom: 30px;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
 }

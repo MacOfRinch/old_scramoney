@@ -52,7 +52,7 @@ class User < ApplicationRecord
     if total.zero?
       1.0 / family.users.size
     else
-      sum_points * 100.0 / total
+      (sum_points * 100.0 / total).round(1)
     end
   end
 
@@ -61,7 +61,7 @@ class User < ApplicationRecord
     if total.zero?
       1.0 / family.users.size
     else
-      sum_points_of_last_month * 100.0 / total
+      (sum_points_of_last_month * 100.0 / total).round(1)
     end
   end
 

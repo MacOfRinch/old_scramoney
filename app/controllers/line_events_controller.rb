@@ -36,9 +36,11 @@ class LineEventsController < ApplicationController
             if response.code.to_i == 200
               message = {
                 type: 'text',
-                text: "連携申請ありがとうございます！下記のURLからアプリの再ログインに進んでください。URLの有効期間は10分間です。https://#{Settings.default_url_options.host}/login?linkToken=#{token}"
+                text: "連携申請ありがとうございます！\n下記のURLからアプリの再ログインに進んでください。\nURLの有効期間は10分間です。\nhttps://#{Settings.default_url_options.host}/login?linkToken=#{token}"
               }
               line_client.reply_message(replyToken, message)
+            else
+              redirect_to root_path, danger: '問題が発生しました。お手数ですが、初めからやり直してください。'
             end
           end
         end
@@ -49,7 +51,7 @@ class LineEventsController < ApplicationController
           correct_nonce = Nonce.find_by!(nonce: nonce)
           if correct_nonce.active?(nonce)
             user = User.find(correct_nonce.user_id.to_s)
-            user.update_columns(provider: 'line', line_user_id: event['source']['userId'])
+            user.update_columns(provider: 'line', line_user_id: event['source']['userId'], line_flag: true)
             Authentication.create(user_id: user.id, provider: 'line', uid: user.line_user_id)
           else
             logger.error('有効期限切れのようです')

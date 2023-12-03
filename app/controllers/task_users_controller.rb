@@ -25,10 +25,4 @@ class TaskUsersController < ApplicationController
       redirect_to family_records_path, danger: '無効な操作です'
     end
   end
-
-  private
-
-  def record_params
-    params.require(:task_user).permit(:task_id, :user_id, :count)
-  end
 end

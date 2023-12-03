@@ -12,10 +12,10 @@ class InvitedUsersController < ApplicationController
     # 他の家族でログインしている人を統合する処理だよ。
     if logged_in?
       old_family = current_user.family
-      new_family = Family.find_by(id: params[:invitation_code])
+      new_family = Family.find(params[:invitation_code])
       current_user.update_column(:family_id, new_family.id)
       old_family.destroy! if old_family.users.size == 0
-      redirect_to family_path(new_family), success: "#{new_family.family_name}家(#{new_family.family_nickname})に招待され、メンバーに加わりました！"
+      redirect_to family_path(new_family), success: "#{new_family.family_name}家に招待され、メンバーに加わりました！"
     else
       # 通常の招待処理だよ。
       @user = User.new(user_params)

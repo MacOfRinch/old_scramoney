@@ -41,11 +41,11 @@ class FamilyProfilesController < ApplicationController
         notice = Notice.create(title: '家族プロフィール変更の承認依頼', family_id: @family.id, user_id: user.id,
                                notice_type: :approval_request, approval_request_id: approval_request.id)
         Read.create!(notice_id: notice.id, user_id: user.id, checked: false)
-        if user.line_user_id
+        if user.line_user_id && user.line_flag
           family_notices_url = 'https://' + Settings.default_url_options.host + family_notices_path(user.family)
           message = {
             type: 'text',
-            text: "#{notice.title}が届いています。ログインして詳細をご確認ください。#{family_notices_url}"
+            text: "#{notice.title}が届いています。\nログインして詳細をご確認ください。\n#{family_notices_url}"
             }
           line_client.push_message(user.line_user_id, message)
         end

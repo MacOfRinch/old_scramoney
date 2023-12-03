@@ -4,30 +4,46 @@ class OauthsController < ApplicationController
   skip_before_action :set_family
 
   def oauth
-    login_at(auth_params[:provider])
+    provider = auth_params[:provider]
+    callback_url = if params[:invitation_code]
+                     "https://" + Settings.default_url_options.host + "/oauth/callback?provider=#{provider}&invitation_code=#{params[:invitation_code]}"
+                   else
+                     Settings.sorcery[:line_callback_url]
+                   end
+    login_at(provider, callback_url: callback_url)
+    if params[:invitation_code]
+      # sessionメソッドでinvitation_codeをパラメータに追加するよ
+      session[:invitation_code] = params[:invitation_code]
+    end
   end
 
   def callback
+    invitation_code = session.delete(:invitation_code)
     provider = auth_params[:provider]
-    if (@user = login_from(provider))
-      redirect_to family_path(@user.family), success: "#{provider.titleize}でログインしました"
+    if (@user = login_from(provider, should_remember = params[:remember_me]))
+      redirect_back_or_to family_path(@user.family), success: "#{provider.titleize.upcase}でログインしました"
     else
       @user = create_from(provider)
       # 仮でランダムなアドレスとパスワードをセットしとくよ
       @user.email ||= fake_email
       @user.password ||= SecureRandom.urlsafe_base64
       @user.provider ||= provider
-      if @user.family.nil?
-        @family = Family.create(family_name: '名無し', budget: 50_000)
+      @family = Family.find_by(id: invitation_code)
+      if @family
         @user.family = @family
+        @user.line_flag = true
         @user.save!
         reset_session
         auto_login(@user)
-        redirect_to edit_family_path(@family), success: "#{provider.titleize}で認証しました。次に家族情報を入力してください。"
+        redirect_to family_path(@family), success: "#{provider.titleize.upcase}で#{@family.family_name}家に招待されました"
       else
+        @family = Family.create(family_name: 'Default_family_name', budget: 50_000)
+        @user.family = @family
+        @user.line_flag = true
+        @user.save!
         reset_session
         auto_login(@user)
-        redirect_to family_path(@user.family), success: "#{provider.titleize}で#{@family.family_name}家に招待されました"
+        redirect_to edit_family_path(@family), success: "#{provider.titleize.upcase}で認証しました。次に家族情報を入力してください。"
       end
     end
   end

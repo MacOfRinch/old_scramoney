@@ -14,4 +14,9 @@ namespace :notices do
       end
     end
   end
+
+  desc '今週のお小遣いをお知らせするよ。'
+  task report_money_of_this_week: :environment do
+    WeeklyNoticeJob.perform_now
+  end
 end

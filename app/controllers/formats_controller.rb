@@ -14,6 +14,8 @@ class FormatsController < ApplicationController
     if user
       auto_login(user)
       family = user.family
+      family.budget_of_last_month ||= family.budget
+      family.save!
       redirect_to family_invitation_path(family), success: '登録に成功しました！さっそく家族を招待しましょう。'
     else
       flash.now[:danger] = '入力内容に誤りがあります'

@@ -24,7 +24,7 @@
       </ul>
     <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary ms-2' %>
     <div class="float-end">
-      <%= button_to 'タスクを削除する', family_task_path(@family, @task), class: 'btn btn-danger me-2',method: :delete, data: { confirm: '今までの履歴からも削除されます。よろしいですか？' } %>
+      <%= button_to 'タスクを削除する', family_task_path(@family, @task), class: 'btn btn-danger me-2',method: :delete, data: { confirm: 'ポイント取得履歴からも削除されます。よろしいですか？' } %>
     </div>
     </div>
   </div>

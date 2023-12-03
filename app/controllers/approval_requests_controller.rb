@@ -14,7 +14,7 @@ class ApprovalRequestsController < ApplicationController
     status = ApprovalStatus.find_by(approval_request_id: @request.id, user_id: current_user.id)
     status.update!(status: :refuse)
     @family.apply_changes_if_approved(@request)
-    redirect_to family_path(@family), alert: '変更を拒否しました'
+    redirect_to family_path(@family), danger: '変更を拒否しました'
   end
 
   private

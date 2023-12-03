@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :families, only: %i[show edit update destroy] do
     resources :users, only: %i[destroy] do
-      get :line_associate
+      resource :line_associates, only: %i[new create destroy]
     end
     resource :user_profile, only: %i[show edit update]
     resources :tasks do

@@ -97,19 +97,20 @@ class Family < ApplicationRecord
 
   def apply_changes_if_approved(request)
     request.check_if_approved
-    # temporary_data = TemporaryFamilyDatum.find_by(approval_request_id: request.id)
-    case request.status
-    when 'accepted'
+    if request.status == 'accepted'
       merge_temporary_data(request)
+      # 承認されたことをLINEで通知するよ。
+      ApprovedEditFamilyProfileJob.perform_later(request.requester)
     end
   end
 
   # プロフィール編集リクエストが通った時に一時保管データをマージするメソッドだよ。上で使ってるよ。
   def merge_temporary_data(request)
     temporary_data = TemporaryFamilyDatum.find_by(approval_request_id: request.id)
-    update_column(:family_name, temporary_data.name)
-    update_column(:family_nickname, temporary_data.nickname)
-    update_column(:family_avatar, temporary_data.avatar)
-    update_column(:budget, temporary_data.budget)
+    update_columns(family_name: temporary_data.name,
+                   family_nickname: temporary_data.nickname,
+                   family_avatar: temporary_data.avatar,
+                   budget: temporary_data.budget
+                   )
   end
 end

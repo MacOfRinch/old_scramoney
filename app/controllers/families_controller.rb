@@ -40,7 +40,7 @@ class FamiliesController < ApplicationController
 
   def invitation
     # current_userの所属するfamilyがページのparamsと違ったりログインしてない人だったら招待リンクを貼るよ
-    @family = Family.find_by(id: params[:family_id])
+    @family = Family.find(params[:family_id])
     @invitation_code = params[:family_id]
   end
 
@@ -56,8 +56,8 @@ class FamiliesController < ApplicationController
 
   def each_name_points(users)
     result = []
-    users.each do |user|
-      array = ["#{display_name(user)}:#{user.sum_points}pt (#{user.percent}%)", user.sum_points]
+    users.sort_by{ |user| user.sum_points }.reverse.each do |user|
+      array = ["#{display_name(user)}: #{user.sum_points}pt (#{user.percent}%)", user.sum_points]
       result << array
     end
     result
@@ -65,8 +65,8 @@ class FamiliesController < ApplicationController
 
   def each_pocket_money(users)
     result = []
-    users.each do |user|
-      array = ["#{display_name(user)}:#{user.calculate_pocket_money.to_s(:delimited)}円", user.calculate_pocket_money]
+    users.sort_by{ |user| user.calculate_pocket_money }.reverse.each do |user|
+      array = ["#{display_name(user)}: #{user.calculate_pocket_money.to_s(:delimited)}円", user.calculate_pocket_money]
       result << array
     end
     result

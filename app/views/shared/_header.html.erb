@@ -1,7 +1,9 @@
 <header>
   <nav class="navbar navbar-light bg-warning">
     <div class="container-fluid sticky-top d-flex">
-        <%= link_to '<戻る', 'javascript:history.back()', class: 'navbar-brand inline-box' %>
+        <%= link_to family_path(@family) do %>
+          <%= image_tag 'scramoney_icon', size: "35x35" %>
+        <% end %>
           <!-- <input type="button" class="navbar-brand inline-box" value="<戻る"/> -->
         <div class="float-end">
           <ul class="list-group list-group-horizontal list-unstyled">

@@ -40,15 +40,14 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = Task.find(params[:id])
-    # taskとuser紐づけてないの忘れてたってかデフォルトを削除できなくなっちゃうからコメントアウトしておくよ。
-    # if task.user == current_user
-    task.destroy!
-    redirect_to family_categories_path(@family), success: '削除しました', status: :see_other
-    # else
-    # flash.now[:danger] = '削除権限がありません'
-    # render :show
-    # end
+    task = Task.find_by(id: params[:id])
+    if task
+      task.destroy!
+      redirect_to family_categories_path(@family), success: 'タスクを削除しました', status: :see_other
+    else
+      flash.now[:danger] = '無効な操作です'
+      render :index
+    end
   end
 
   def menu; end

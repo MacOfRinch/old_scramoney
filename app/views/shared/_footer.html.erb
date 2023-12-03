@@ -1,5 +1,6 @@
 <footer class="footer bg-light">
-  <div class="container-fluid fixed-bottom">
+<% if @family.family_name %>
+  <div class="container-fluid fixed-bottom gx-0">
     <div style="height: 30px" class="bg-light row px-0 pb-4">
       <%= link_to family_path(@family), class: 'text-decoration-none link-dark col px-0' do %>
         <div style="height: 30px" class="border text-center">ホーム</div>
@@ -18,4 +19,5 @@
       <% end %>
     </div>
   </div>
+<% end %>
 </footer>

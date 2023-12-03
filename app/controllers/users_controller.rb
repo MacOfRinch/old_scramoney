@@ -12,11 +12,4 @@ class UsersController < ApplicationController
       redirect_to root_path, danger: '無効な操作です'
     end
   end
-
-  def line_associate
-    @user = current_user
-    unless @user.family == Family.find_by(id: params[:family_id])
-      redirect_to root_path, danger: '無効な操作です'
-    end
-  end
 end

@@ -23,7 +23,7 @@ class User < ApplicationRecord
   validates :password, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :reset_password_token, uniqueness: true, allow_nil: true
-  validates :line_user_id, uniqueness: true
+  validates :line_user_id, uniqueness: true, allow_nil: true
 
   attr_accessor :linkToken
 

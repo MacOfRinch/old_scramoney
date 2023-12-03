@@ -79,13 +79,15 @@ Task.find_or_create_by(title: '筋トレ', category_name: :extra, points: 20)
 Family.find_or_create_by(id: 0000000000000000, family_name: 'ゲスト', family_nickname: 'ゲストファミリー', budget: 100_000, budget_of_last_month: 75_000)
 
 users = [
-  {family_id: 0000000000000000, name: 'ゲス太郎', nickname: 'パパ', email: 'papa@example.com', password: SecureRandom.urlsafe_base64},
-  {family_id: 0000000000000000, name: 'ゲス華子', nickname: 'ママ', email: 'mama@example.com', password: SecureRandom.urlsafe_base64},
-  {family_id: 0000000000000000, name: 'ゲスト', nickname: 'ゲスト', email: 'guestuser@example.com', password: SecureRandom.urlsafe_base64}, 
-  {family_id: 0000000000000000, name: 'ゲス弟', nickname: '次郎', email: 'ramenjiro@example.com', password: SecureRandom.urlsafe_base64}
+  {family_id: 0000000000000000, name: 'ゲス太郎', nickname: 'パパ', email: 'papa@example.com'},
+  {family_id: 0000000000000000, name: 'ゲス華子', nickname: 'ママ', email: 'mama@example.com'},
+  {family_id: 0000000000000000, name: 'ゲスト', nickname: 'ゲスト', email: 'guestuser@example.com'}, 
+  {family_id: 0000000000000000, name: 'ゲス弟', nickname: '次郎', email: 'ramenjiro@example.com'}
 ]
 users.each do |user|
   User.find_or_create_by(user)
+  user.password = SecureRandom.urlsafe_base64
+  user.save!
 end
 
 # papa = User.find_by(family_id: 0000000000000000, email: 'papa@example.com')

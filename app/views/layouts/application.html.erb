@@ -3,14 +3,16 @@
   <head>
     <title><%= page_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= javascript_importmap_tags %>
     <%= favicon_link_tag 'scramoney_icon.jpeg' %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= turbo_include_tags %>
+    <%= javascript_include_tag 'custom/line', 'data-turbo-action': 'replace', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "custom", media: "all" %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-    <%= javascript_importmap_tags %>
   </head>
 
   <body>

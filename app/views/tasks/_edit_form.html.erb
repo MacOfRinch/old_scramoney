@@ -1,24 +1,29 @@
-
-  <ul>
-    <div class="form-group">
-    <li>
-      <p><%= f.label :name, 'カテゴリ：' %>
-      <%= f.collection_select :category_id, categories, :id, :name, { selected: task.category_id } %></p>
-    </li>
+<%= turbo_frame_tag task do %>
+  <%= form_with model: task, url: family_task_path(@family, task) do |f| %>
+    <div class="bg-secondary-subtle py-2 my-2 mx-auto rounded">
+      <ul class="list-unstyled ps-2">
+        <li>
+          <p><%= f.label :name, 'カテゴリ：' %>
+          <%= f.collection_select :category_id, categories, :id, :name, { selected: task.category_id }, class: 'form-control' %></p>
+        </li>
+        <li>
+          <p><%= f.label :title, 'タスク：' %>
+          <%= f.text_field :title, value: task.title, class: 'form-control px-2' %></p>
+        </li>
+        <li>
+          <p><%= f.label :description, '詳細：' %>
+          <%= f.text_area :description, value: task.description, class: 'form-control px-2', size: '30x3' %></p>
+        </li>
+        <li>
+          <p><%= f.label :points, '基礎ポイント：' %>
+          <%= f.number_field :points, value: task.points %> pt</p>
+        </li>
+      </ul>
+      <div class="center-block text-center">
+        <!--data: { turbo_frame: '_top' }をつけることで、このアクション時にページ全体を更新するようにお願いしてるよ。submitボタンでも使えるみたいだね。-->
+        <%= f.submit '更新する', class: 'btn btn-primary my-2', data: { turbo_frame: '_top' } %>
+        <%= link_to 'キャンセル', family_task_path(@family, task), class: 'btn btn-outline-secondary' %>
+      </div>
     </div>
-    <li>
-      <p><%= f.label :title, 'タスク：' %>
-      <%= f.text_field :title, value: task.title %></p>
-    </li>
-    <li>
-      <p><%= f.label :description, '詳細：' %>
-      <%= f.text_area :description, value: task.description, class: 'form-control', size: '30x3' %></p>
-    </li>
-    <li>
-      <p><%= f.label :points, '基礎ポイント：' %>
-      <%= f.number_field :points, value: task.points %> pt</p>
-    </li>
-  </ul>
-  <div class="center-block text-center">
-    <%= f.submit '更新する', class: 'btn btn-primary my-2' %>
-  </div>
+  <% end %>
+<% end %>

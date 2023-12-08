@@ -34,7 +34,6 @@
         <% end %>
         <div class="actions my-2">
           <%= f.submit 'ログイン', { class: 'btn btn-primary' } %>
-          <!--<input type="submit" value="ログイン" class="btn btn-primary" /> -->
         </div>
         <% unless @link_token %>
           <%= link_to auth_at_provider_path(provider: :line), class: "btn btn-line-wrapper center-block text-center my-2 d-flex" do %>
@@ -52,6 +51,10 @@
           </div>
         <% end %>
       <% end %>
+      <br>
+      <div class="text-center">
+        <%= button_to 'ゲストユーザーとしてログイン', login_as_guest_path, class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
 </div>

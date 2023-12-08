@@ -23,6 +23,11 @@ class Family < ApplicationRecord
   validates :family_name, presence: true
   validates :budget, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000 }
 
+  enum :status, {
+    normal: 0,
+    guest: 1
+  }
+
   # 家族の総取得ポイント数を計算するメソッドだよ。
   def sum_points
     points = 0
@@ -52,8 +57,7 @@ class Family < ApplicationRecord
   def monopolized_by_one?
     result = false
     users.each do |user|
-      next if user.sum_points < sum_points
-
+      next if user.calculate_points < sum_points
       result = true
     end
     result
@@ -87,7 +91,7 @@ class Family < ApplicationRecord
                                categories.find_by(name: '勉強(学校)').id
                              when 'pet'
                                categories.find_by(name: 'ペット').id
-                             else
+                             when 'extra'
                                categories.find_by(name: 'その他').id
                              end
 

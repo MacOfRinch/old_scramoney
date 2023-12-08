@@ -39,3 +39,9 @@
 /config/settings/*.local.yml
 /config/environments/*.local.yml
 /config/certs/*
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

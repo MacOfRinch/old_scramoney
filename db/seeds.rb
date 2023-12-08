@@ -17,10 +17,10 @@ Category.find_or_create_by(name: 'ペット')
 Category.find_or_create_by(name: 'その他', created_at: 'Fri, 31 Dec 9999 23:59:59.999999999')
 
 # 具体的な家事のタスクにはこんなものがあるよ。もちろん暫定だよ。
-Task.find_or_create_by(title: '朝食の用意', category_name: :housework, points: 30)
-Task.find_or_create_by(title: '昼食の用意', category_name: :housework, points: 25)
-Task.find_or_create_by(title: '夕食の用意', category_name: :housework, points: 40)
-Task.find_or_create_by(title: '食事の後片付け', category_name: :housework, points: 20)
+Task.find_or_create_by(title: '朝食の用意', category_name: :housework, points: 20)
+Task.find_or_create_by(title: '昼食の用意', category_name: :housework, points: 15)
+Task.find_or_create_by(title: '夕食の用意', category_name: :housework, points: 30)
+Task.find_or_create_by(title: '食事の後片付け', category_name: :housework, points: 10)
 Task.find_or_create_by(title: '買い出し', description: '目安として3〜4日分の食料品、生活必需品等の買い出し', category_name: :housework, points: 50)
 Task.find_or_create_by(title: 'ゴミ出し', category_name: :housework, points: 10)
 Task.find_or_create_by(title: '掃除機がけ', description: 'コロコロなども含む', category_name: :housework, points: 30)
@@ -74,21 +74,3 @@ Task.find_or_create_by(title: '玩具で遊ぶ', category_name: :pet, points: 15
 # その他デフォルトで登録しときたいデータだよ。
 Task.find_or_create_by(title: '虫退治', category_name: :extra, points: 50)
 Task.find_or_create_by(title: '筋トレ', category_name: :extra, points: 20)
-
-# ゲストログイン用のダミー家族を作成するよ。
-Family.find_or_create_by(id: 0000000000000000, family_name: 'ゲスト', family_nickname: 'ゲストファミリー', budget: 100_000, budget_of_last_month: 75_000)
-
-users = [
-  {family_id: 0000000000000000, name: 'ゲス太郎', nickname: 'パパ', email: 'papa@example.com', password: "#{ENV['GUEST_PASSWORD']}", password_confirmation: "#{ENV['GUEST_PASSWORD']}"},
-  {family_id: 0000000000000000, name: 'ゲス華子', nickname: 'ママ', email: 'mama@example.com', password: "#{ENV['GUEST_PASSWORD']}", password_confirmation: "#{ENV['GUEST_PASSWORD']}"},
-  {family_id: 0000000000000000, name: 'ゲスト', nickname: 'ゲスト', email: 'guestuser@example.com', password: "#{ENV['GUEST_PASSWORD']}", password_confirmation: "#{ENV['GUEST_PASSWORD']}"}, 
-  {family_id: 0000000000000000, name: 'ゲス弟', nickname: '次郎', email: 'ramenjiro@example.com', password: "#{ENV['GUEST_PASSWORD']}", password_confirmation: "#{ENV['GUEST_PASSWORD']}"}
-]
-users.each do |user|
-  User.create!(user)
-end
-
-# papa = User.find_by(family_id: 0000000000000000, email: 'papa@example.com')
-# mom = User.find_by(family_id: 0000000000000000, email: 'mama@example.com')
-# guest = User.find_by(family_id: 0000000000000000, email: 'guestuser@example.com')
-# bros = User.find_by(family_id: 0000000000000000, email: 'ramenjiro@example.com')

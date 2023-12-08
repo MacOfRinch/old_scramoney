@@ -14,3 +14,4 @@ pin "@fortawesome/free-regular-svg-icons", to: "https://ga.jspm.io/npm:@fortawes
 pin "@fortawesome/free-solid-svg-icons", to: "https://ga.jspm.io/npm:@fortawesome/free-solid-svg-icons@6.4.2/index.mjs"
 
 pin_all_from 'app/javascript/custom', under: 'custom'
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true

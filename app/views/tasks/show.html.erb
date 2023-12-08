@@ -4,29 +4,45 @@
     <div class="text-center border-bottom">
       <h1>タスク管理</h1>
     </div>
-    <div class="center-block bg-light pt-2">
-    <div>
-      <ul>
-        <li>
-          <p><%= "カテゴリ：#{@task.category.name}" %></p>
-        </li>
-        <li>
-          <p><%= "タスク：#{@task.title}" %></p>
-        </li>
-        <% if @task.description.present? %>
-        <li>
-          <p><%= "タスク詳細：#{@task.description}" %></p>
-        </li>
+    <%= turbo_frame_tag @task do %>
+      <div class="bg-secondary-subtle py-2 my-2 mx-auto rounded">
+        <%= link_to family_category_path(@family, @category), class: "text-decoration-none text-body" do %>
+          <div class="row pb-2 border-bottom border-secondary">
+            <div class="col-1">▼</div>
+            <div class="col-8 d-flex align-items-center">
+              <%= @task.title %>
+            </div>
+            <div class="col-3 d-flex align-items-center">
+              <%= @task.points %>
+            </div>
+          </div>
         <% end %>
-        <li>
-          <p><%= "基礎ポイント：#{@task.points} pt" %></p>
-        </li>
-      </ul>
-    <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary ms-2' %>
-    <div class="float-end">
-      <%= button_to 'タスクを削除する', family_task_path(@family, @task), class: 'btn btn-danger me-2',method: :delete, data: { confirm: 'ポイント取得履歴からも削除されます。よろしいですか？' } %>
-    </div>
-    </div>
-  </div>
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-8">
+        <ul class="pt-2 list-unstyled">
+          <li>
+            <p><%= "カテゴリ：#{@task.category.name}" %></p>
+          </li>
+          <li>
+            <p><%= "タスク：#{@task.title}" %></p>
+          </li>
+          <% if @task.description.present? %>
+            <li>
+              <p><%= "タスク詳細：#{@task.description}" %></p>
+            </li>
+          <% end %>
+          <li>
+            <p><%= "基礎ポイント：#{@task.points} pt" %></p>
+          </li>
+        </ul>
+        </div>
+        <div class="col-3">
+          <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary my-2' %>
+          <%= button_to '削除', family_task_path(@family, @task), class: 'btn btn-danger my-2', method: :delete, data: { turbo_confirm: 'ポイント取得履歴からも削除されます。よろしいですか？', turbo_frame: '_top' } %>
+        </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

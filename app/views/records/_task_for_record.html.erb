@@ -1,6 +1,6 @@
 <%= turbo_frame_tag task do %>
   <%= link_to task_show_family_record_path(family, task), class: "text-decoration-none text-body" do %>
-    <div class="row bg-secondary-subtle py-2 mt-2 mx-auto rounded">
+    <div class="row bg-secondary-subtle py-2 my-2 mx-auto rounded">
       <div class="col-1">▶︎</div>
       <div class="col-8"><%= task.title %></div>
       <div class="col-3"><%= task.points %></div>

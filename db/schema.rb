@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_20_144602) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_07_014724) do
   create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "status", limit: 1, default: 0, null: false
     t.text "comment"
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_144602) do
     t.integer "budget_of_last_month"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
   end
 
   create_table "nonces", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -150,6 +151,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_144602) do
     t.string "provider"
     t.string "line_user_id"
     t.boolean "line_flag", default: false
+    t.integer "points", default: 0
+    t.integer "points_of_last_month", default: 0
+    t.integer "pocket_money_of_last_month", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["family_id"], name: "index_users_on_family_id"
     t.index ["line_user_id"], name: "index_users_on_line_user_id", unique: true

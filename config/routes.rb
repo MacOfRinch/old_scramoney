@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
+  post 'login_as_guest', to: 'user_sessions#login_as_guest'
   # Defines the root path route ("/")
   # root "articles#index"
   root "home#top"

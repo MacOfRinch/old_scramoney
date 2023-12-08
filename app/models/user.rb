@@ -25,6 +25,8 @@ class User < ApplicationRecord
   validates :reset_password_token, uniqueness: true, allow_nil: true
   validates :line_user_id, uniqueness: true, allow_nil: true
 
+  after_create lambda { self.pocket_money ||= 0 }
+
   attr_accessor :linkToken
 
   # sorceryのload_from_providerで使うメソッドだよ。
@@ -36,13 +38,13 @@ class User < ApplicationRecord
     task_users.destroy(task)
   end
 
-  def sum_points
+  def calculate_points
     # self.tasks.pluck(:points).sum
     task_users.this_month.map { |record| record.task.points * record.count }.sum
   end
 
   # いい方法見つかったら消す
-  def sum_points_of_last_month
+  def calculate_points_of_last_month
     # self.tasks.pluck(:points).sum
     task_users.last_month.map { |record| record.task.points * record.count }.sum
   end
@@ -52,7 +54,7 @@ class User < ApplicationRecord
     if total.zero?
       1.0 / family.users.size
     else
-      (sum_points * 100.0 / total).round(1)
+      (points * 100.0 / total).round(1)
     end
   end
 
@@ -61,7 +63,7 @@ class User < ApplicationRecord
     if total.zero?
       1.0 / family.users.size
     else
-      (sum_points_of_last_month * 100.0 / total).round(1)
+      (points_of_last_month * 100.0 / total).round(1)
     end
   end
 
@@ -91,7 +93,7 @@ class User < ApplicationRecord
     if family.sum_points.zero?
       pm = (total / family.users.size)
     else
-      ratio = sum_points.to_f / family.sum_points
+      ratio = points.to_f / family.sum_points
       pm = total * ratio
     end
     rounded_down = (pm / Unit).to_i * Unit

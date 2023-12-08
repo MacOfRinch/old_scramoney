@@ -24,29 +24,44 @@ class TasksController < ApplicationController
     @tasks = Task.includes(:category).where(family_id: @family.id)
   end
 
-  def show; end
+  def show
+    @category = @task.category
+  end
 
   def edit
     @categories = Category.where(family_id: @family.id)
   end
 
   def update
+    @category = @task.category
     if @task.update(task_params)
-      redirect_to family_categories_path(@family), success: 'タスク情報が更新されました'
+      @family.users.each do |user|
+        user.update_column(:points, user.calculate_points)
+        user.update_column(:pocket_money, user.calculate_pocket_money)
+      end
+      redirect_to family_category_path(@family, @category), success: 'タスク情報が更新されました'
     else
       flash.now[:danger] = '入力内容に誤りがあります'
-      render :show
+      render :edit, :unprocessable_entity
     end
   end
 
   def destroy
     task = Task.find_by(id: params[:id])
     if task
+      records = TaskUser.where(task_id: task.id)
+      if records.present?
+        records.each do |record|
+          record.user.update_column(:points, record.user.points - record.task.points * record.count)
+          record.destroy!
+        end
+      end
       task.destroy!
+      @family.users.each { |user| user.update_column(:pocket_money, user.calculate_pocket_money) }
       redirect_to family_categories_path(@family), success: 'タスクを削除しました', status: :see_other
     else
       flash.now[:danger] = '無効な操作です'
-      render :index
+      render :index, :unprocessable_entity
     end
   end
 

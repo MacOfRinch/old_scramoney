@@ -5,8 +5,8 @@ class RecordsController < ApplicationController
 
   # 履歴だよ。
   def index
-    @tasks = TaskUser.where(family_id: @family.id).this_month.order(created_at: :desc)
-    @tasks_of_last_month = TaskUser.where(family_id: @family.id).last_month.order(created_at: :desc)
+    @records = TaskUser.where(family_id: @family.id).this_month.order(created_at: :desc)
+    @records_of_last_month = TaskUser.where(family_id: @family.id).last_month.order(created_at: :desc)
   end
 
   def new
@@ -25,12 +25,14 @@ class RecordsController < ApplicationController
   # タスク記録用コントローラだよ。
   def task_show
     @task = Task.find(params[:id])
+    @category = @task.category
     @task_user = TaskUser.new
   end
 
   def show
-    @task = TaskUser.find(params[:id])
-    @user = @task.user
+    @record = TaskUser.find(params[:id])
+    @task = @record.task
+    @user = @record.user
   end
 
   def edit; end

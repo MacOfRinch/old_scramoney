@@ -3,23 +3,27 @@
   <head>
     <title><%= page_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= javascript_importmap_tags %>
-    <%= favicon_link_tag 'scramoney_icon.jpeg' %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= favicon_link_tag 'scramoney_icon.jpeg' %>
     <%= turbo_include_tags %>
     <%= javascript_include_tag 'custom/line', 'data-turbo-action': 'replace', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "custom", media: "all" %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
   <% if current_user.present? %>
     <%= render partial: 'shared/header', user: @user %>
   <% end %>
-  <%= render 'shared/flash_messages' %>
+  <div id="flash">
+    <%= render 'shared/flash_messages' %>
+  </div>
   <div class="money-container">
     <%= yield %>
   </div>

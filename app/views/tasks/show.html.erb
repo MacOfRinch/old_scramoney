@@ -6,7 +6,7 @@
     </div>
     <%= turbo_frame_tag @task do %>
       <div class="bg-secondary-subtle py-2 my-2 mx-auto rounded">
-        <%= link_to family_category_path(@family, @category), class: "text-decoration-none text-body" do %>
+        <%= link_to family_category_tasks_path(@family, @category), class: "text-decoration-none text-body" do %>
           <div class="row pb-2 border-bottom border-secondary">
             <div class="col-1">▼</div>
             <div class="col-8 d-flex align-items-center">
@@ -38,8 +38,8 @@
         </ul>
         </div>
         <div class="col-3">
-          <%= link_to '編集', edit_family_task_path(@family, @task), class: 'btn btn-primary my-2' %>
-          <%= button_to '削除', family_task_path(@family, @task), class: 'btn btn-danger my-2', method: :delete, data: { turbo_confirm: 'ポイント取得履歴からも削除されます。よろしいですか？', turbo_frame: '_top' } %>
+          <%= link_to '編集', edit_family_category_task_path(@family, @category, @task), class: 'btn btn-primary my-2' %>
+          <%= button_to '削除', family_category_task_path(@family, @category, @task), class: 'btn btn-danger my-2', method: :delete, data: { turbo_confirm: 'ポイント取得履歴からも削除されます。よろしいですか？', turbo_frame: '_top' } %>
         </div>
         </div>
       </div>

@@ -14,28 +14,38 @@ class RecordsController < ApplicationController
     @tasks = Task.where(family_id: @family.id)
   end
 
-  def create; end
+  def create
+    # 一括記録処理だよ。
+    tasks_params = params[:task_user][:tasks]
+    tasks_params.each do |task_id, task_data|
+      id = task_id.to_i
+      count = task_data[:count].to_i
+      task = Task.find(id)
+      TaskUser.create!(task_id: id, user_id: current_user.id, family_id: @family.id, count: count) if count > 0
+      current_user.update_column(:points, (current_user.points + task.points * count))
+    end
+    @family.users.each do |user|
+      user.update_column(:pocket_money, user.calculate_pocket_money)
+    end
+    redirect_to new_family_record_path(@family), success: 'タスクを記録しました！'
+  end
 
   # カテゴリ一覧から飛べるタスク一覧ページのコントローラだよ。
   def task_index
-    @tasks = Task.where(category_id: params[:id])
     @category = Category.find(params[:id])
+    @record = TaskUser.new
   end
 
-  # タスク記録用コントローラだよ。
-  def task_show
+  def increment
     @task = Task.find(params[:id])
-    @category = @task.category
-    @task_user = TaskUser.new
+    @record = TaskUser.new
+    @record.increment!(:count)
+    render turbo_frame: @task, partial: 'records/task_for_record', locals: { task: @task, record: @record }
   end
 
-  def show
-    @record = TaskUser.find(params[:id])
-    @task = @record.task
-    @user = @record.user
+  private
+
+  def task_user_params
+    params.require(:task_user).permit(task_users_attributes: [:task_id, :count])
   end
-
-  def edit; end
-
-  def update; end
 end

@@ -23,8 +23,11 @@
 #   # Report violations without enforcing the policy.
 #   # config.content_security_policy_report_only = true
 # end
+
+# 暫定対処 :unsafe_inlineを外せるなら外したい
 Rails.application.config.content_security_policy do |policy|
   policy.script_src :self, :https
 end
 
+# 暫定対処。ほんとはnonce設定しておかないとセキュリティ上のリスクがある
 Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }

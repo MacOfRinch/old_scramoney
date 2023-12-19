@@ -23,10 +23,6 @@ class CategoriesController < ApplicationController
     @categories = Category.includes(:tasks).where(family_id: @family.id)
   end
 
-  def show
-    @tasks = Task.where(category_id: params[:id])
-  end
-
   def edit; end
 
   def destroy

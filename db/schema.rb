@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_014724) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "count", default: 1
+    t.integer "count", default: 0
     t.bigint "family_id"
     t.index ["family_id"], name: "index_task_users_on_family_id"
     t.index ["task_id"], name: "index_task_users_on_task_id"

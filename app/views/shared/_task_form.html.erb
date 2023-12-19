@@ -1,16 +1,24 @@
-          <li>
-            <%= f.label :category_id, 'カテゴリ：' %>
-            <%= f.collection_select :category_id, Category.where(family_id: @family.id), :id, :name %>
-          </li>
-          <li>
-            <%= f.label :title, 'タスク名(必須)：' %>
-            <%= f.text_field :title, class: 'form-control' %><br>
-          </li>
-          <li>
-            <%= f.label :description, 'タスク詳細：' %>
-            <%= f.text_field :description, class: 'form-control' %><br>
-          </li>
-          <li>
-            <%= f.label :points, '基礎ポイント(必須)：' %>
-            <%= f.number_field :points %>pt<br>
-          </li>
+<%= turbo_frame_tag 'new_task' do %>
+  <div class="center-block mx-auto bg-light py-2 my-2 rounded">
+    <%= form_with model: task, url: family_category_tasks_path(family, category) do |f| %>
+      <ul class="list-unstyled">
+        <li>
+          <%= f.label :title, 'タスク名(必須)：' %>
+          <%= f.text_field :title, class: 'form-control px-2' %><br>
+        </li>
+        <li>
+          <%= f.label :description, 'タスク詳細：' %>
+          <%= f.text_field :description, class: 'form-control px-2' %><br>
+        </li>
+        <li>
+          <%= f.label :points, '基礎ポイント(必須)：' %>
+          <%= f.number_field :points %>pt<br>
+        </li>
+      </ul>
+      <div class="text-center">
+        <%= f.submit '登録', class: "btn btn-primary my-2", data: { turbo_frame: '_top' } %>
+        <%= link_to 'キャンセル', family_category_tasks_path(family, category), class: 'btn btn-outline-secondary my-2' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

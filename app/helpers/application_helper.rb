@@ -22,4 +22,8 @@ module ApplicationHelper
     end
     ChunkyPNG::Image.from_datastream(qrcode.as_png.resize(size, size).to_datastream).to_data_url
   end
+
+  def turbo_stream_flash
+    turbo_stream.update "flash", partial: "shared/flash_messages"
+  end
 end

@@ -14,18 +14,16 @@ Rails.application.routes.draw do
       resource :line_associates, only: %i[new create destroy]
     end
     resource :user_profile, only: %i[show edit update]
-    resources :tasks do
-      get :menu, on: :collection
-      post :task_users, to: 'task_users#create', on: :member
-      delete :task_users, to: 'task_users#destroy', on: :member
+    resources :categories, only: %i[ index new create edit update destroy ] do
+      resources :tasks
     end
-    resources :categories
     resources :task_users, only: %i[create destroy]
     resources :notices, only: %i[create index show destroy] do
       get :show_approval_request
     end
-    resources :records do
-      get :task_show, on: :member
+    resources :records, only: %i[ index new create destroy ] do
+      patch :increment, on: :member
+      patch :decrement, on: :member
       get :task_index, on: :member
     end
     get :configuration

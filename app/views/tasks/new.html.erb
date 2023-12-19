@@ -6,21 +6,14 @@
   </div>
   <div class="center-block">
     <div id="error-explanation">
-    <% if @task.errors.any? %>
-      <ul>
-        <% @task.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-      <ul>
-        <%= form_with model: @task, url: family_tasks_path(@family) do |f| %>
-          <%= render partial: 'shared/task_form', locals: { f: f } %>
-          <div class="text-center">
-            <%= f.submit '登録', class: "btn btn-success my-2" %>
-          </div>
-        <% end %>
-      </ul>
+      <% if @task.errors.any? %>
+        <ul>
+          <% @task.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
     </div>
   </div>
 </div>

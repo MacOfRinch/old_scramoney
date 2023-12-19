@@ -3,12 +3,14 @@
 class TaskUsersController < ApplicationController
   def create
     # 記録処理
-    task = Task.find_by(id: params[:id])
-    if task
-      record = TaskUser.create!(task_id: task.id, user_id: current_user.id, family_id: @family.id,
+    @category = Category.find_by(id: params[:category_id])
+    @task = Task.find_by(id: params[:id])
+    if @task
+      record = TaskUser.create!(task_id: @task.id, user_id: current_user.id, family_id: @family.id,
                                 count: params[:task_user][:count].to_i)
+      current_user.update_column(:points, (current_user.points + @task.points * record.count))
       @family.users.each do |user|
-        user.update_columns(pocket_money: user.calculate_pocket_money, points: (user.points + task.points * record.count))
+        user.update_column(:pocket_money, user.calculate_pocket_money)
       end
       redirect_to new_family_record_path, success: 'タスクが記録されました'
     else

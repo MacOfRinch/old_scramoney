@@ -1,5 +1,5 @@
 <%= turbo_frame_tag task do %>
-  <%= form_with model: task, url: family_task_path(@family, task) do |f| %>
+  <%= form_with model: task, url: family_category_task_path(@family, category, task) do |f| %>
     <div class="bg-secondary-subtle py-2 my-2 mx-auto rounded">
       <ul class="list-unstyled ps-2">
         <li>
@@ -22,7 +22,7 @@
       <div class="center-block text-center">
         <!--data: { turbo_frame: '_top' }をつけることで、このアクション時にページ全体を更新するようにお願いしてるよ。submitボタンでも使えるみたいだね。-->
         <%= f.submit '更新する', class: 'btn btn-primary my-2', data: { turbo_frame: '_top' } %>
-        <%= link_to 'キャンセル', family_task_path(@family, task), class: 'btn btn-outline-secondary' %>
+        <%= link_to 'キャンセル', family_category_task_path(@family, category, task), class: 'btn btn-outline-secondary' %>
       </div>
     </div>
   <% end %>

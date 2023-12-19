@@ -1,20 +1,21 @@
-<% content_for(:title, 'タスク管理') %>
+<!--そのカテゴリに属するタスク一覧のページだよ。タスク管理画面へ飛ぶよ-->
 <div class="container-fluid">
-  <div class="center-block">
+  <div class="center-block bg-light py-2">
     <div class="text-center">
-      <h1>タスク管理</h1>
+      <h1><%= "【#{@category.name}】のタスク一覧" %></h1>
     </div>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>カテゴリ</th>
-          <th>タスク名</th>
-          <th>pt</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @tasks %>
-      </tbody>
-    </table>
+  </div>
+  <div class="center-block">
+    <div class="row bg-light py-2 border-top mx-auto">
+      <div class="col-1"></div>
+      <div class="col-8"><strong>タスク名</strong></div>
+      <div class="col-3"><strong>pt</strong></div>
+    </div>
+    <div id="tasks">
+      <%= render partial: 'task', collection: @tasks, locals: { family: @family, category: @category } %>
+      <%= turbo_frame_tag Task.new %>
+    </div>
+    <%= link_to 'タスク追加', new_family_category_task_path(@family, @category), class: 'btn btn-outline-primary', data: { turbo_frame: 'new_task' } %>
   </div>
 </div>
+<div>　</div>

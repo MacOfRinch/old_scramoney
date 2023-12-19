@@ -6,11 +6,11 @@
     </div>
   </div>
   <% if @family.users.size < 2 %>
-    <div class="text-center bg-light"><p>ステップ2を終えていません：<br><%= link_to 'まずはこちらから家族を招待しましょう！', family_invitation_path(@family) %></p></div>
+    <div class="text-center bg-light mt-5"><p>ステップ2を終えていません：<br><%= link_to 'まずはこちらから家族を招待しましょう！', family_invitation_path(@family) %></p></div>
   <% elsif @family.sum_points <= 0 %>
-    <div class="text-center bg-light"><p>今月のデータがありません</p></div>
+    <div class="text-center bg-light mt-5"><p>今月のデータがありません</p></div>
   <% elsif @family.monopolized_by_one? %>
-    <div class="text-center bg-light"><p>2人以上の記録がありません：<br>
+    <div class="text-center bg-light mt-5"><p>2人以上の記録がありません：<br>
     みんなで記録して始めましょう！</p></div>
   <% else %>
     <%= pie_chart @each_name_points, id: 'pie-chart' %>

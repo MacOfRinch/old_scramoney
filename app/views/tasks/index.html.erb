@@ -6,16 +6,13 @@
     </div>
   </div>
   <div class="center-block">
-    <div class="row bg-light py-2 border-top mx-auto">
-      <div class="col-1"></div>
-      <div class="col-8"><strong>タスク名</strong></div>
-      <div class="col-3"><strong>pt</strong></div>
+    <div class="bg-light py-2 border-top ps-2 mx-auto sticky-top">
+      <strong>タスク名</strong>
     </div>
     <div id="tasks">
       <%= render partial: 'task', collection: @tasks, locals: { family: @family, category: @category } %>
-      <%= turbo_frame_tag Task.new %>
     </div>
-    <%= link_to 'タスク追加', new_family_category_task_path(@family, @category), class: 'btn btn-outline-primary', data: { turbo_frame: 'new_task' } %>
+    <%= link_to 'タスク追加', new_family_category_task_path(@family, @category), class: 'btn btn-primary mt-2', data: { turbo_frame: 'modal' } %>
   </div>
 </div>
 <div>　</div>

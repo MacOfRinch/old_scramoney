@@ -32,7 +32,7 @@
         <% if @link_token %>
           <%= f.hidden_field :linkToken, value: @link_token %>
         <% end %>
-        <div class="actions my-2">
+        <div class="actions my-2" data-controller="hello">
           <%= f.submit 'ログイン', { class: 'btn btn-primary' } %>
         </div>
         <% unless @link_token %>

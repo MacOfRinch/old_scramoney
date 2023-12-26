@@ -5,8 +5,8 @@ class RecordsController < ApplicationController
 
   # 履歴だよ。
   def index
-    @records = TaskUser.where(family_id: @family.id).this_month.order(created_at: :desc)
-    @records_of_last_month = TaskUser.where(family_id: @family.id).last_month.order(created_at: :desc)
+    @records = TaskUser.where(family_id: @family.id).this_month.order(created_at: :desc).page(params[:page])
+    @records_of_last_month = TaskUser.where(family_id: @family.id).last_month.order(created_at: :desc).page(params[:page])
   end
 
   def new
@@ -16,7 +16,7 @@ class RecordsController < ApplicationController
 
   def create
     # 一括記録処理だよ。
-    tasks_params = params[:task_user][:tasks]
+    tasks_params = params[:tasks]
     tasks_params.each do |task_id, task_data|
       id = task_id.to_i
       count = task_data[:count].to_i
@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
     @family.users.each do |user|
       user.update_column(:pocket_money, user.calculate_pocket_money)
     end
-    redirect_to new_family_record_path(@family), success: 'タスクを記録しました！'
+    redirect_to family_records_path(@family), success: 'タスクを記録しました！'
   end
 
   # カテゴリ一覧から飛べるタスク一覧ページのコントローラだよ。

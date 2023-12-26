@@ -2,6 +2,7 @@
 //= require jquery3
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require_tree .
 const Popper = require('popper.js');
 window.Popper = Popper;
 import "@hotwired/turbo-rails"

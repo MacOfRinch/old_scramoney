@@ -45,6 +45,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 gem 'bootstrap', '~> 5.2.0'
+gem "bootstrap_form"
 gem 'jquery-rails'
 gem 'sassc-rails'
 # Use Sass to process CSS
@@ -54,7 +55,8 @@ gem 'sorcery'
 # gem "image_processing", "~> 1.2"
 gem 'chartkick'
 gem 'cssbundling-rails'
-
+gem 'font-awesome-rails'
+gem "font-awesome-sass", "~> 6.5.1"
 gem 'carrierwave'
 gem 'config'
 gem 'dotenv-rails'
@@ -62,6 +64,8 @@ gem 'mini_magick'
 # gem 'whenever', require: false
 gem 'chunky_png'
 gem 'googleauth'
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views'
 gem 'rqrcode'
 gem 'rqrcode_png'
 gem 'line-bot-api'

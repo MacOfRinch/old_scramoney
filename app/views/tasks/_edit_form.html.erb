@@ -1,6 +1,6 @@
 <%= turbo_frame_tag task do %>
-  <%= form_with model: task, url: family_category_task_path(@family, category, task) do |f| %>
-    <div class="bg-secondary-subtle py-2 my-2 mx-auto rounded">
+  <%= bootstrap_form_with model: task, url: family_category_task_path(@family, category, task), data: { action: "turbo:submit-end->modal#close" } do |f| %>
+    <div class="bg-light py-2 my-2 mx-auto rounded">
       <ul class="list-unstyled ps-2">
         <li>
           <p><%= f.label :name, 'カテゴリ：' %>
@@ -12,7 +12,7 @@
         </li>
         <li>
           <p><%= f.label :description, '詳細：' %>
-          <%= f.text_area :description, value: task.description, class: 'form-control px-2', size: '30x3' %></p>
+          <%= f.text_area :description, value: task.description, class: 'form-control px-2', size: '10x3' %></p>
         </li>
         <li>
           <p><%= f.label :points, '基礎ポイント：' %>
@@ -22,7 +22,7 @@
       <div class="center-block text-center">
         <!--data: { turbo_frame: '_top' }をつけることで、このアクション時にページ全体を更新するようにお願いしてるよ。submitボタンでも使えるみたいだね。-->
         <%= f.submit '更新する', class: 'btn btn-primary my-2', data: { turbo_frame: '_top' } %>
-        <%= link_to 'キャンセル', family_category_task_path(@family, category, task), class: 'btn btn-outline-secondary' %>
+        <!--<%= link_to 'キャンセル', family_category_tasks_path(@family, category), class: 'btn btn-outline-secondary' %>-->
       </div>
     </div>
   <% end %>

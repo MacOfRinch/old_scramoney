@@ -1,13 +1,16 @@
 <%= turbo_frame_tag task do %>
-  <%= link_to family_category_task_path(@family, @category, task), class: "text-decoration-none text-body" do %>
-    <div class="row bg-secondary-subtle py-2 my-2 mx-auto rounded">
-      <div class="col-1">▶︎</div>
-      <div class="col-8 d-flex align-items-center">
-        <%= task.title %>
-      </div>
-      <div class="col-3 d-flex align-items-center">
-        <%= task.points %>
-      </div>
+  <div class="row bg-light py-2 border-top mx-auto">
+    <div class="col-6"><%= task.title %></div>
+    <div class="col-3">
+      <%= task.points %>
     </div>
-  <% end %>
+    <div class="col-3">
+      <%= link_to edit_family_category_task_path(@family, @category, task), class: "text-success", data: { turbo_frame: 'modal' } do %>
+        <i class="fa-solid fa-pen"></i>
+      <% end %>
+      <%= link_to family_category_task_path(@family, @category, task), class: "text-danger ms-2", data: { turbo_method: :delete, turbo_confirm: 'ポイント取得履歴からも削除されます。本当に削除しますか？' } do %>
+        <i class="fa-regular fa-trash-can"></i>
+      <% end %>
+    </div>
+  </div>
 <% end %>

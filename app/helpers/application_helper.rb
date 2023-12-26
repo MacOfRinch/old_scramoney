@@ -23,6 +23,9 @@ module ApplicationHelper
     ChunkyPNG::Image.from_datastream(qrcode.as_png.resize(size, size).to_datastream).to_data_url
   end
 
+  def new_notice?
+    Read.where(user_id: current_user.id, checked: false).present?
+  end
   def turbo_stream_flash
     turbo_stream.update "flash", partial: "shared/flash_messages"
   end

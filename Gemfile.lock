@@ -79,6 +79,12 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.6, < 3)
       sassc-rails (>= 2.0.0)
+    bootstrap5-kaminari-views (0.0.1)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
+    bootstrap_form (5.4.0)
+      actionpack (>= 6.1)
+      activemodel (>= 6.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -159,6 +165,10 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
+    font-awesome-rails (4.7.0.8)
+      railties (>= 3.2, < 8.0)
+    font-awesome-sass (6.5.1)
+      sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     googleauth (1.8.0)
@@ -188,6 +198,18 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.6.3)
     jwt (2.7.1)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
@@ -426,6 +448,8 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap (~> 5.2.0)
+  bootstrap5-kaminari-views
+  bootstrap_form
   capybara
   carrierwave
   chartkick
@@ -435,10 +459,13 @@ DEPENDENCIES
   debug
   dotenv-rails
   factory_bot_rails
+  font-awesome-rails
+  font-awesome-sass (~> 6.5.1)
   googleauth
   importmap-rails
   jbuilder
   jquery-rails
+  kaminari
   letter_opener_web
   line-bot-api
   mini_magick

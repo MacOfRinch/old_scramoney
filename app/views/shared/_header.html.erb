@@ -5,9 +5,18 @@
           <%= image_tag 'scramoney_icon', size: "35x35" %>
         <% end %>
           <!-- <input type="button" class="navbar-brand inline-box" value="<戻る"/> -->
-        <div class="float-end">
-          <ul class="list-group list-group-horizontal list-unstyled">
-            <li><%= link_to (Read.where(user_id: current_user.id, checked: false).present? ? "通知(#{Read.where(user_id: current_user.id, checked: false).count}件の未読)" : '通知'), family_notices_path(@family), class: 'text-decoration-none link-dark' %></li>
+          <% if Read.where(user_id: current_user.id, checked: false).present? %>
+            <%= link_to family_notices_path(@family), class: "text-decoration-none" do %>
+              <span class="fa-stack">
+                <i class="far fa-bell fa-lg fa-stack-2x" style="font-size: 1.5rem;"></i>
+                <i class="fas fa-circle n-circle fa-stack-1x"></i>
+              </span>
+            <% end %>
+          <% else %>
+            <%= link_to family_notices_path(@family), class: "text-body" do %>
+              <i class="far fa-bell fa-lg" style="font-size: 1.5rem;"></i>
+            <% end %>
+          <% end %>
             <!--<li><%= button_to 'サインアウト', logout_path, method: :delete %></li>-->
           </ul>
         </div>

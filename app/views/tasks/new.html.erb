@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!--<div class="container-fluid">
   <div class="center-block">
     <div class="text-center bg-light py-2 rounded mb-2">
       <h1>新しいタスクの登録</h1>
@@ -16,4 +16,8 @@
       <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
     </div>
   </div>
-</div>
+</div>-->
+
+<%= render 'layouts/modal', title: '新しいタスクの登録' do %>
+  <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
+<% end %>

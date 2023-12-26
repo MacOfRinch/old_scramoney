@@ -97,3 +97,7 @@ $line-icon-ratio: 0.6;
   font-size: ($line-btn-height * (1 - $line-icon-ratio));
   text-decoration: none;
 }
+
+.pagination {
+  justify-content: center;
+}

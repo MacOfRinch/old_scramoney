@@ -103,8 +103,15 @@ class Family < ApplicationRecord
     request.check_if_approved
     if request.status == 'accepted'
       merge_temporary_data(request)
+      Notice.create()
       # 承認されたことをLINEで通知するよ。
       ApprovedEditFamilyProfileJob.perform_later(request.requester)
+    elsif request.status == 'refused'
+      notices = Notice.where(approval_request_id: request.id)
+      notices.each do |notice|
+        notice.destroy!
+      end
+
     end
   end
 

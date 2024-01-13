@@ -3,6 +3,7 @@
 class ApprovalRequest < ApplicationRecord
   has_many :approval_statuses
   has_many :notices
+  has_many :approvers, class_name: 'User', foreign_key: :user_id
   has_one :temporary_family_data
 
   belongs_to :family

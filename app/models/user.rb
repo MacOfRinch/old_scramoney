@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'date'
+
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
@@ -41,6 +43,10 @@ class User < ApplicationRecord
   def calculate_points
     # self.tasks.pluck(:points).sum
     task_users.this_month.map { |record| record.task.points * record.count }.sum
+  end
+
+  def sum_points_of_the_day(date)
+    task_users.where(created_at: date.all_day).map{ |record| record.task.points * record.count }.sum
   end
 
   # いい方法見つかったら消す

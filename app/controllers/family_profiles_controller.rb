@@ -2,7 +2,9 @@
 
 class FamilyProfilesController < ApplicationController
   require 'line/bot'
-  def show; end
+  def show
+    @users = @family.users
+  end
 
   def edit; end
 

@@ -29,6 +29,10 @@
             <%= @family.budget.to_s(:delimited) %>円
           </td>
         </tr>
+        <tr>
+          <th scope="row">メンバー</th>
+          <%= render partial: "family_profiles/user", collection: @users %>
+        </tr>
       </table>
     </div>
   </div>

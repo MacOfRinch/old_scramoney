@@ -49,20 +49,24 @@ class NoticesController < ApplicationController
 
   def each_name_points_of_last_month(users)
     result = []
-    users.sort_by{ |user| user.points_of_last_month }.reverse.each do |user|
-      array = ["#{display_name(user)}: #{user.points_of_last_month}pt (#{user.percent_of_last_month}%)",
-               user.points_of_last_month]
-      result << array
+    if @family.sum_points != 0
+      users.sort_by{ |user| user.points_of_last_month }.reverse.each do |user|
+        array = ["#{display_name(user)}: #{user.points_of_last_month}pt (#{user.percent_of_last_month}%)",
+                 user.points_of_last_month]
+        result << array
+      end
     end
     result
   end
 
   def each_pocket_money_of_last_month(users)
     result = []
-    users.sort_by{ |user| user.pocket_money_of_last_month }.reverse.each do |user|
-      array = ["#{display_name(user)}: #{user.pocket_money_of_last_month.to_s(:delimited)}円",
-               user.pocket_money_of_last_month]
-      result << array
+    if @family.sum_points != 0
+      users.sort_by{ |user| user.pocket_money_of_last_month }.reverse.each do |user|
+        array = ["#{display_name(user)}: #{user.pocket_money_of_last_month.to_s(:delimited)}円",
+                 user.pocket_money_of_last_month]
+        result << array
+      end
     end
     result
   end

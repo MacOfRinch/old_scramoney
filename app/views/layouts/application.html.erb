@@ -10,6 +10,7 @@
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag 'scramoney_icon.jpeg' %>
     <%= turbo_include_tags %>
+    <%= javascript_include_tag 'application', type: 'module' %>
     <%= javascript_include_tag 'custom/line', 'data-turbo-action': 'replace', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "custom", media: "all" %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
@@ -18,7 +19,7 @@
 
   <body>
   <% if current_user.present? %>
-    <%= render partial: 'shared/header', user: @user %>
+    <%= render 'shared/header', user: @user %>
   <% end %>
   <div id="flash">
     <%= render 'shared/flash_messages' %>

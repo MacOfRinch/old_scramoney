@@ -1,6 +1,6 @@
 <%= turbo_frame_tag Task.new do %>
   <div class="center-block mx-auto bg-light py-2 my-2 rounded">
-    <%= bootstrap_form_with model: task, url: family_category_tasks_path(family, category) do |f| %>
+    <%= bootstrap_form_with model: task, url: family_category_tasks_path(family, category), data: { action: "turbo:submit-end->modal#close" } do |f| %>
       <ul class="list-unstyled">
         <li>
           <%= f.label :title, 'タスク名(必須)：' %>

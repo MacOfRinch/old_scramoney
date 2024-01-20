@@ -108,6 +108,7 @@ GEM
     config (4.2.1)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
+    connection_pool (2.4.1)
     crass (1.0.6)
     cssbundling-rails (1.2.0)
       railties (>= 6.0.0)
@@ -313,6 +314,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.8.1)
+    redis-client (0.19.1)
+      connection_pool
     regexp_parser (2.8.1)
     reline (0.3.8)
       io-console (~> 0.5)
@@ -391,6 +394,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.2.0)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
     signet (0.18.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -483,6 +491,7 @@ DEPENDENCIES
   sass (~> 3.7)
   sassc-rails
   selenium-webdriver
+  sidekiq
   sorcery
   sprockets-rails
   stimulus-rails

@@ -17,7 +17,8 @@
     </div>
   </div>
 </div>-->
-
-<%= render 'layouts/modal', title: '新しいタスクの登録' do %>
-  <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
+<%= turbo_frame_tag 'modal' do %>
+  <%= render 'modal', title: '新しいタスクの登録' do %>
+    <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
+  <% end %>
 <% end %>

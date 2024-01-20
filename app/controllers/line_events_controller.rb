@@ -67,6 +67,12 @@ class LineEventsController < ApplicationController
     head :ok
   end
 
+  def unconnect
+    auth = Authentication.find_by(user_id: current_user.id, provider: 'line', uid: current_user.line_user_id)
+    auth.destroy!
+    current_user.update_columns(provider: nil, line_user_id: nil, line_flag: false)
+  end
+
   private
 
   def line_client

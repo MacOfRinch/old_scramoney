@@ -69,6 +69,7 @@ gem 'bootstrap5-kaminari-views'
 gem 'rqrcode'
 gem 'rqrcode_png'
 gem 'line-bot-api'
+gem 'sidekiq'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

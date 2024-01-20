@@ -1,7 +1,14 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
+  get 'hello/index', to: 'hello#index'
+  if Rails.env.development? || Rails.env.test?
+    mount Sidekiq::Web => "/sidekiq"
+  end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :password_resets, only: [:new, :create, :edit, :update]
   post 'line_events', to: 'line_events#recieve'
+  delete 'line_events', to: 'line_events#unconnect'
   post 'google_login_api/callback', to: 'google_login_api#callback'
   resources :formats, only: %i[new create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

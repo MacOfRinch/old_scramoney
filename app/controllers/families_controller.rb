@@ -29,8 +29,9 @@ class FamiliesController < ApplicationController
 
   def destroy
     if @family && @family.users.include?(current_user)
+      @family.users.each { |user| user.destroy! }
       @family.destroy!
-      redirect_to root_path, success: '家族情報を削除しました'
+      redirect_to root_path, success: '家族情報を削除し退会しました'
     else
       redirect_to root_path, danger: '無効な操作です'
     end

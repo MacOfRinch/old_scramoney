@@ -20,10 +20,10 @@
       </div>
     </div>
   <% when "approval_request" %>
-    <!--<%= render 'layouts/modal', title: '承認申請' do %>
+    <%= render 'modal', title: '承認申請' do %>
       <%= render partial: 'show_approval_request', locals: { family: @family, new_data: @new_family_data, request: @request }, data: { turbo_frame: 'modal' } %>
-    <% end %>-->
-    <div class="center-block bg-light">
+    <% end %>
+    <!--<div class="center-block bg-light">
       <div class="text-center">
         <p>以下の変更を承認しますか？</p>
         <p><%= "家族名：#{@family.family_name} -> #{@new_family_data.name}" %></p>
@@ -38,6 +38,6 @@
           <%= button_to '拒否', refuse_family_path(@request), class: 'btn btn-danger' %>
         </div>
       </div>
-    </div>
+    </div>-->
   <% end %>
 </div>
